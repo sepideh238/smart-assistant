@@ -1,0 +1,228 @@
+.main-header {
+
+  height: 56px; 
+  /* ارتفاع هدر مثل دیجی‌کالا */
+
+  background-color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  /* قرار گرفتن محتوا در مرکز عمودی */
+
+  margin: 0;
+  border-radius: 0;
+  border: none;
+
+  border-bottom: 1px solid #eef0f2;
+  /* خط خاکستری پایین هدر */
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  /* سایه بسیار ملایم زیر هدر */
+
+
+  /* =========================
+     کانتینر اصلی هدر
+     نگهدارنده سه بخش:
+     راست (لوگو) | وسط (جستجو) | چپ (آیکن‌ها)
+     ========================= */
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 0 20px;
+    /* فاصله محتوا از چپ و راست */
+  }
+
+
+
+  /* =========================
+     سمت راست هدر (لوگو)
+     ========================= */
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    /* لوگو در مرکز عمودی */
+  }
+
+  .logo img {
+    height: 20px;
+    /* اندازه لوگو مناسب هدر 56px */
+
+    width: auto;
+
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    line-height: 1;
+    /* جلوگیری از جابجایی عمودی لوگو */
+  }
+
+
+
+    /* =========================
+   بخش جستجو (Search Wrapper)
+   ========================= */
+.search-wrapper {
+  flex: 1;
+  max-width: 600px;
+  margin: 0 20px;
+  position: relative;
+
+  /* باکس اصلی فرم (دقیقاً مشابه عکس) */
+  /* ۱. اصلاح باکس فرم جستجو: لبه‌های پایین صاف می‌شوند */
+.search-form {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #e0e0e2;
+  /* گوشه‌های بالا ۸ پیکسل گرد، گوشه‌های پایین ۰ (صاف) */
+  border-radius: 12px 12px 0 0; /* از 8 به 12 تغییر یافت */
+  overflow: hidden;
+  width: 100%;
+}
+
+
+  .search-icon-inside {
+    padding-left: 15px;
+    padding-right: 10px;
+    color: #a1a3a8;
+    display: flex;
+    align-items: center;
+    svg { width: 20px; height: 20px; }
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #3f4064;
+    text-align: left; /* انگلیسی */
+    
+    &::placeholder {
+      color: #a1a3a8;
+    }
+  }
+
+  /* دکمه قرمز (اصلاح لبه‌ها) */
+  /* ۲. اصلاح دکمه قرمز: لبه پایین سمت راست هم صاف می‌شود */
+  .search-button {
+    width: 44px;
+    height: 100%;
+    background-color: #ef3f54;
+    border: none;
+    /* فقط گوشه بالا سمت راست گرد باشد تا با فرم هماهنگ شود */
+    border-radius: 0 12px 0 0; /* از 8 به 12 تغییر یافت */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 20px;
+      height: 20px;
+      stroke: #fff;
+    }
+  }
+
+  /* ۳. اصلاح لیست پیشنهادات: فقط لبه‌های پایین گرد هستند */
+.search-suggestions {
+  position: absolute;
+  top: 100%; 
+  left: 0;
+  width: calc(100% - 44px); 
+  background-color: #fff;
+  border: 1px solid #e0e0e2;
+  border-top: none; /* حذف خط بالا برای چسبیدن کامل به فرم */
+  border-radius: 0 0 12px 12px; /* از 8 به 12 تغییر یافت */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  .suggestion-title {
+    /* تغییر مهم: پدینگ عمودی صفر شد تا با li یکی شود */
+    padding: 0 15px; 
+    font-size: 12px;
+    color: #81858b;
+    min-height: 44px; /* حالا این 44 دقیقاً با 44 پایین برابر می‌شود */
+    display: flex;
+    align-items: center;
+    text-align: right; /* اضافه شدن تراز راست */
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  
+    li {
+      padding: 0 15px; /* پدینگ عمودی صفر است */
+      font-size: 14px;
+      color: #424750;
+      cursor: pointer;
+      text-align: right;
+      border-top: 1px solid #f1f2f4; 
+      min-height:44px;  
+      display: flex;    
+      align-items: center;
+      font-family: inherit;
+  
+      &:hover {
+        background-color: #f9fafb;
+      }
+    }
+  }
+  }
+}
+
+  /* =========================
+     سمت چپ هدر (آیکن‌ها)
+     مثل:
+     مقایسه | ورود | سبد خرید
+     ========================= */
+
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+    /* فاصله بین آیکن‌ها */
+
+    list-style: none;
+    /* حذف bullet لیست */
+
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .action-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+      /* افکت hover */
+    }
+
+    svg {
+      display: block;
+    }
+  }
+
+}
