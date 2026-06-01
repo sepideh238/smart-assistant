@@ -2,7 +2,14 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-}
-.layout__main {
+  
+    width: 100%;
+    overflow-x: hidden; // مهم: جلوگیری از اسکرول/بیرون‌زدگی افقی
+  }
+  
+  .layout__main {
     flex: 1;
-}
+    width: 100%;
+    min-width: 0; // مهم: اجازه می‌دهد آیتم‌های داخلی در flex کوچک شوند
+  }
+  

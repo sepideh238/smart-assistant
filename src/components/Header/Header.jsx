@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import logo from '../../assets/images/digikala.png';
+{/*import SearchBox from '../SearchBox/SearchBox';*/}
 
 export default function Header() {
   return (
@@ -14,64 +15,11 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* بخش جستجو (مرکز) */}
+        {/* بخش جستجو (مرکز) 
         <div className="search-wrapper">
-          <form className="search-form" role="search">
-            {/* آیکن داخل اینپوت */}
-            <span className="search-icon-inside">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </span>
+          <SearchBox />
+        </div>*/}
 
-            {/* اینپوت */}
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search for products..."
-            />
-
-            {/* دکمه سرچ */}
-            <button type="submit" className="search-button">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
-            </button>
-          </form>
-
-          {/* پاپ‌آپ پیشنهادات - فعلاً استاتیک */}
-          <div className="search-suggestions">
-            <div className="suggestion-header">Suggested Searches</div>
-            <ul className="suggestion-list">
-            <li>Wireless Headphones</li>
-              <li>Smartphones</li>
-              <li>Laptop</li>
-              <li>Running Shoes</li>
-              <li>Smart Watch</li>
-            </ul>
-          </div>
-        </div>
-         
         {/* آیکن‌ها (سمت راست طبق کد شما) */}
         <div className="header-right">
           <ul className="header-actions">

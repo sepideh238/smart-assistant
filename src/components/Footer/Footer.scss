@@ -1,187 +1,169 @@
 /* =========================================
    MAIN FOOTER
 ========================================= */
-
 .main-footer {
   width: 100%;
   background: #ef4056;
+  color: #fff;
+
   display: flex;
   flex-direction: column;
 
-  /* فونت اصلی فوتر */
   font-family: Tahoma, Arial, sans-serif;
-
-  /* فشرده‌تر شدن کلی فاصله خطوط */
   line-height: 1.2;
-}
 
-
-/* =========================================
-   CONTAINER
-========================================= */
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-
-  /* کاهش فاصله افقی کل فوتر */
-  padding: 0 10px;
-}
-
-
-/* =========================================
-   FOOTER TOP (بخش ستون‌ها)
-========================================= */
-
-.footer-top {
-  display: flex;
-
-  /* کاهش بیشتر ارتفاع بخش بالا */
-  padding: 10px 0 8px;
-  align-items: flex-start;
-}
-
-
-/* =========================================
-   FOOTER COLUMN
-========================================= */
-
-.footer-col {
-  flex: 1;
-
-  /* رنگ سفید متن‌ها */
-  color: #fff;
-
-  /* کاهش فاصله داخلی ستون‌ها */
-  padding: 0 10px;
-
-  /* خط جداکننده ستون‌ها */
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
-
-  h4 {
-    /* عنوان ستون */
-    font-size: 12.5px;
-    font-weight: 500;
-
-    /* فاصله کمتر از لیست */
-    margin-bottom: 4px;
-
-    /* سفید */
-    color: #fff;
+  /* =========================================
+     CONTAINER (ایزوله: فقط داخل فوتر)
+  ========================================= */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 10px;
   }
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* =========================================
+     FOOTER TOP (ستون‌ها)
+  ========================================= */
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
 
-    li {
-      /* فاصله کم بین آیتم‌ها برای فوتر جمع‌تر */
-      margin-bottom: 2px;
+    padding: 12px 0 10px;
+  }
 
-      a {
-        /* لینک‌های سفید */
-        color: #fff;
+  /* =========================================
+     FOOTER COLUMN
+  ========================================= */
+  .footer-col {
+    flex: 1;
+    padding: 0 12px;
 
-        text-decoration: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
 
-        /* اندازه کوچک‌تر برای فوتر */
-        font-size: 12px;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
 
-        /* وزن سبک‌تر فونت */
-        font-weight: 300;
+      li {
+        margin-bottom: 6px;
 
-        /* فشرده‌تر شدن حروف */
-        letter-spacing: -0.3px;
+        a {
+          color: #fff;
+          text-decoration: none;
 
-        /* ارتفاع خط کمتر */
-        line-height: 1.1;
+          font-size: 12px;
+          font-weight: 300;
+          letter-spacing: -0.2px;
 
-        /* اولین حرف بزرگ */
-        text-transform: capitalize;
+          transition: opacity 0.2s ease;
 
-        transition: 0.2s;
+          &:hover {
+            opacity: 0.75;
+          }
+        }
 
-        &:hover {
-          opacity: 0.75;
+        /* عنوان هر ستون (اولین li) کمی بولدتر و جدا */
+        &:first-child a {
+          font-size: 12.5px;
+          font-weight: 600;
+          opacity: 0.95;
+          pointer-events: none; /* عنوان کلیک‌پذیر نباشد */
+          cursor: default;
         }
       }
     }
   }
-}
 
-.footer-col:last-child {
-  border-right: none;
-}
-.icon-box {
-  width: 50px;
-  height: 30px;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
+  .footer-col:last-child {
+    border-right: none;
   }
 
-}
-/* =========================================
-   PAYMENT ICONS (آیکون‌های پرداخت)
-========================================= */
+  /* =========================================
+     PAYMENT ICONS
+  ========================================= */
+  .payment-icons {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    flex-wrap: wrap; /* در عرض کم نریزد */
+  }
 
-.payment-icons {
-  display: flex;
-  gap: 4px;
-  margin-top: 12px;
-}
+  .icon-box {
+    width: 50px;
+    height: 30px;
+    flex-shrink: 0;
 
-.icon-box {
-  width: 50px;
-  height: 30px;
-  flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 
-  .payment-svg {
-    width: 100%;
-    height: 100%;
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    .payment-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  /* =========================================
+     FOLLOW ICONS
+  ========================================= */
+  .follow-icons {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .social-svg {
+    width: 32px;
+    height: 32px;
     display: block;
+
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    /* رنگ‌ها از CSS کنترل می‌شوند */
+    .social-bg {
+      fill: #d9d9d9;
+    }
+
+    .social-fill {
+      fill: #ffffff;
+    }
+
+    .social-stroke {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 3;
+    }
+
+    .social-accent {
+      fill: #ef4056;
+    }
   }
-}
 
 
-/* =========================================
-   FOLLOW ICONS (شبکه‌های اجتماعی)
-========================================= */
+  /* =========================================
+     FOOTER BOTTOM
+  ========================================= */
+  .footer-bottom {
+    text-align: center;
+    padding: 8px 0 10px;
 
-.follow-icons {
-  display: flex;
-  gap: 5px;
-  margin-top: 12px;
-}
+    font-size: 12.5px;
+    opacity: 0.9;
 
-.social-svg {
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  transition: transform .2s;
-
-  &:hover {
-    transform: translateY(-3px);
+    p {
+      margin: 0;
+    }
   }
-}
-
-
-/* =========================================
-   FOOTER BOTTOM (بخش کپی‌رایت)
-========================================= */
-
-.footer-bottom {
-  text-align: center;
-
-  /* کاهش محسوس فاصله بین لایه بالا و پایین */
-  padding: 4px 0 5px;
-
-  color: #fff;
-  font-size: 12.5px;
-  opacity: 0.9;
 }
