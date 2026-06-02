@@ -1,5 +1,5 @@
 .main-header {
-  height: 56px;
+  min-height: 72px;
   background-color: #ffffff;
 
   display: flex;
@@ -10,14 +10,10 @@
   border-radius: 0;
 
   border-bottom: 1px solid #eef0f2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 
   width: 100%;
 
-  /* =========================
-     کانتینر اصلی هدر
-     چپ: لوگو | وسط: جستجو | راست: آیکن‌ها
-     ========================= */
   .container {
     display: flex;
     align-items: center;
@@ -28,11 +24,9 @@
     margin: 0 auto;
     padding: 0 20px;
     gap: 16px;
+    min-height: 72px;
   }
 
-  /* =========================
-     سمت چپ هدر (لوگو)
-     ========================= */
   .header-left {
     display: flex;
     align-items: center;
@@ -46,7 +40,7 @@
   }
 
   .logo img {
-    height: 20px;
+    height: 32px;
     width: auto;
     display: block;
     margin: 0;
@@ -54,25 +48,17 @@
     line-height: 1;
   }
 
- /* =========================
-   بخش جستجو (فقط wrapper)
-   ========================= */
-.search-wrapper {
-  flex: 1;
-  display: flex;              /* مهم: فرزند (SearchBox) وسط‌چین شود */
-  align-items: center;
-  justify-content: center;
+  .search-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 12px;
+    position: relative;
+    min-width: 260px;
+  }
 
-  max-width: 600px;
-  margin: 0 12px;
-
-  position: relative;
-  min-width: 260px;           /* جلوگیری از له شدن در عرض‌های کم */
-}
-
-  /* =========================
-     سمت راست هدر (آیکن‌ها)
-     ========================= */
   .header-right {
     display: flex;
     align-items: center;
@@ -83,7 +69,6 @@
     display: flex;
     align-items: center;
     gap: 18px;
-
     list-style: none;
     margin: 0;
     padding: 0;
@@ -94,17 +79,40 @@
     align-items: center;
     justify-content: center;
 
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-      opacity: 0.7;
+      background-color: rgba(0, 0, 0, 0.04);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
     }
 
     svg {
       display: block;
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .profile-item {
+    background-color: #f7f7f8;
+    border: 1px solid #eceef1;
+    border-radius: 14px;
+
+    svg {
+      width: 31px;
+      height: 31px;
+      stroke: #111;
+    }
+
+    &:hover {
+      background-color: #f1f3f5;
+      border-color: #e3e6ea;
     }
   }
 }

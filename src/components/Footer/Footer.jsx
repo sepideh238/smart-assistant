@@ -4,7 +4,7 @@ import "./Footer.scss";
 export default function Footer() {
   return (
     <footer className="main-footer">
-      <div className="container">
+      <div className="container footer__container">
         <div className="footer-top">
           {/* ستون اول */}
           <div className="footer-col">

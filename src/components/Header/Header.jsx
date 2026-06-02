@@ -1,32 +1,44 @@
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import logo from '../../assets/images/digikala.png';
-{/*import SearchBox from '../SearchBox/SearchBox';*/}
+// import SearchBox from '../SearchBox/SearchBox';
 
 export default function Header() {
   return (
     <header className="main-header">
       <div className="container">
-
-        {/* لوگو (سمت چپ طبق کد شما) */}
         <div className="header-left">
           <Link to="/" className="logo">
             <img src={logo} alt="digikala logo" />
           </Link>
         </div>
 
-        {/* بخش جستجو (مرکز) 
+        {/*
         <div className="search-wrapper">
           <SearchBox />
-        </div>*/}
+        </div>
+        */}
 
-        {/* آیکن‌ها (سمت راست طبق کد شما) */}
         <div className="header-right">
           <ul className="header-actions">
+            {/* پروفایل */}
+            <li className="action-item profile-item" title="User Profile">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#111"
+                strokeWidth="1.9"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="8" r="4.2" />
+                <path d="M4.5 19.2c1.7-3.3 4.5-5 7.5-5s5.8 1.7 7.5 5" />
+              </svg>
+            </li>
+
+            {/* علاقه‌مندی */}
             <li className="action-item" title="Wish List">
               <svg
-                width="22"
-                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#111"
@@ -38,10 +50,9 @@ export default function Header() {
               </svg>
             </li>
 
+            {/* سبد خرید */}
             <li className="action-item" title="Shopping Cart">
               <svg
-                width="22"
-                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#111"
@@ -54,25 +65,8 @@ export default function Header() {
                 <path d="M3 4h2l2.4 12.5a2 2 0 0 0 2 1.5h7.6a2 2 0 0 0 2-1.6L21 8H6" />
               </svg>
             </li>
-
-            <li className="action-item" title="User Profile">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#111"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 20a6 6 0 0 0-12 0" />
-                <circle cx="12" cy="8" r="4" />
-              </svg>
-            </li>
           </ul>
         </div>
-
       </div>
     </header>
   );

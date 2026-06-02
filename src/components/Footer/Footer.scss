@@ -10,16 +10,19 @@
   flex-direction: column;
 
   font-family: Tahoma, Arial, sans-serif;
-  line-height: 1.2;
+  line-height: 1.25;
+
+  /* سایه لطیف بالای فوتر */
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
 
   /* =========================================
      CONTAINER (ایزوله: فقط داخل فوتر)
   ========================================= */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  .footer__container {
     width: 100%;
-    padding: 0 10px;
+    max-width: none;
+    margin: 0;
+    padding: 0 16px;
   }
 
   /* =========================================
@@ -28,8 +31,7 @@
   .footer-top {
     display: flex;
     align-items: flex-start;
-
-    padding: 12px 0 10px;
+    padding: 14px 0 3px;
   }
 
   /* =========================================
@@ -38,7 +40,6 @@
   .footer-col {
     flex: 1;
     padding: 0 12px;
-
     border-right: 1px solid rgba(255, 255, 255, 0.12);
 
     ul {
@@ -47,16 +48,14 @@
       padding: 0;
 
       li {
-        margin-bottom: 6px;
+        margin-bottom: 4px;
 
         a {
           color: #fff;
           text-decoration: none;
-
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 300;
           letter-spacing: -0.2px;
-
           transition: opacity 0.2s ease;
 
           &:hover {
@@ -64,13 +63,16 @@
           }
         }
 
-        /* عنوان هر ستون (اولین li) کمی بولدتر و جدا */
-        &:first-child a {
-          font-size: 12.5px;
-          font-weight: 600;
-          opacity: 0.95;
-          pointer-events: none; /* عنوان کلیک‌پذیر نباشد */
-          cursor: default;
+        &:first-child {
+          margin-bottom: 10px;
+
+          a {
+            font-size: 15px;
+            font-weight: 600;
+            opacity: 0.95;
+            pointer-events: none;
+            cursor: default;
+          }
         }
       }
     }
@@ -85,16 +87,16 @@
   ========================================= */
   .payment-icons {
     display: flex;
-    gap: 6px;
+    align-items: center;
+    gap: 8px;
     margin-top: 10px;
-    flex-wrap: wrap; /* در عرض کم نریزد */
+    flex-wrap: wrap;
   }
 
   .icon-box {
     width: 50px;
     height: 30px;
     flex-shrink: 0;
-
     cursor: pointer;
     transition: transform 0.2s ease;
 
@@ -114,7 +116,8 @@
   ========================================= */
   .follow-icons {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
     margin-top: 10px;
     flex-wrap: wrap;
   }
@@ -123,7 +126,6 @@
     width: 32px;
     height: 32px;
     display: block;
-
     cursor: pointer;
     transition: transform 0.2s ease;
 
@@ -131,7 +133,6 @@
       transform: translateY(-3px);
     }
 
-    /* رنگ‌ها از CSS کنترل می‌شوند */
     .social-bg {
       fill: #d9d9d9;
     }
@@ -151,15 +152,13 @@
     }
   }
 
-
   /* =========================================
      FOOTER BOTTOM
   ========================================= */
   .footer-bottom {
     text-align: center;
-    padding: 8px 0 10px;
-
-    font-size: 12.5px;
+    padding: 5px 0 6px;
+    font-size: 13.5px;
     opacity: 0.9;
 
     p {
