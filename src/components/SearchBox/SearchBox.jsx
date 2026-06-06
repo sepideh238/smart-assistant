@@ -1,5 +1,4 @@
 import "./SearchBox.scss";
-
 export default function SearchBox() {
   // =========================================================
   // داده نمونه (بعداً می‌تونی از API یا state پرش کنی)

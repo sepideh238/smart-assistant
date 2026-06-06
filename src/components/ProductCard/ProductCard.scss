@@ -1,0 +1,91 @@
+/*
+========================================
+استایل‌های کارت محصول
+========================================
+این فایل شامل قوانین CSS برای
+ظاهر و چیدمان کارت محصول است.
+*/
+
+.product-card {
+  display: block; /* برای اطمینان از اینکه تگ <a> مانند یک بلاک عمل می‌کند */
+  border: 1px solid #eee; /* حاشیه ضعیف برای جدا کردن کارت‌ها */
+  border-radius: 8px; /* گوشه‌های گرد */
+  overflow: hidden; /* برای اینکه تصویر و محتوا از گوشه‌های گرد بیرون نزند */
+  text-decoration: none; /* حذف خط زیر لینک */
+  color: inherit; /* ارث‌بری رنگ متن از والد */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* انیمیشن برای هاور */
+  background-color: #fff; /* پس‌زمینه سفید */
+  margin: 10px; /* فاصله خارجی بین کارت‌ها */
+  width: 250px; /* عرض ثابت کارت - در گرید این عرض ممکن است نادیده گرفته شود */
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* سایه بیشتر هنگام هاور */
+    transform: translateY(-5px); /* کمی بالا رفتن کارت هنگام هاور */
+  }
+
+  &__image {
+    width: 100%; /* عرض کامل کارت */
+    /* نسبت تصویر ثابت برای باکس تصویر */
+    padding-top: 100%; /* نسبت 1:1 (مربع) */
+    position: relative; /* برای موقعیت‌دهی تصویر داخل آن */
+    background-color: #f0f0f0; /* پس‌زمینه ضعیف برای تصویر placeholder */
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* تصویر کل باکس را پر می‌کند و نسبت خود را حفظ می‌کند، قسمت‌های اضافه بریده می‌شود */
+      object-position: center; /* مرکز تصویر را نمایش می‌دهد */
+    }
+  }
+
+  &__title {
+    font-size: 1.1em; /* اندازه فونت کمی بزرگتر */
+    font-weight: 600; /* فونت نیمه پررنگ */
+    margin: 12px 10px 8px 10px; /* فاصله‌گذاری بالا، چپ/راست، پایین */
+    color: #333; /* رنگ تیره برای عنوان */
+    /* جلوگیری از چند خط شدن عنوان در صورت طولانی بودن */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* حداکثر دو خط */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* اضافه کردن "..." در صورت بریده شدن متن */
+  }
+
+  &__price {
+    font-size: 1em; /* اندازه فونت استاندارد */
+    font-weight: 700; /* فونت پررنگ */
+    margin: 0 10px 15px 10px; /* فاصله‌گذاری */
+    color: #e74c3c; /* رنگ قرمز برای قیمت */
+  }
+}
+
+/* Media Queries برای Responsive بودن */
+
+/* برای تبلت‌ها و دستگاه‌های با صفحه نمایش متوسط */
+@media (max-width: 768px) {
+  .product-card {
+    width: calc(50% - 20px); /* دو ستونه با احتساب مارجین */
+    margin: 10px;
+    /* تنظیمات دیگر در صورت نیاز */
+  }
+}
+
+/* برای موبایل‌ها و دستگاه‌های با صفحه نمایش کوچک */
+@media (max-width: 480px) {
+  .product-card {
+    width: calc(100% - 20px); /* تک ستونه */
+    margin: 10px auto; /* وسط‌چین کردن */
+    /* تنظیمات دیگر در صورت نیاز */
+  }
+
+  .product-card__title {
+    font-size: 1em; /* کمی کوچکتر کردن فونت عنوان */
+  }
+
+  .product-card__price {
+    font-size: 0.95em; /* کمی کوچکتر کردن فونت قیمت */
+  }
+}

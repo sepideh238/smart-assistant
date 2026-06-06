@@ -1,0 +1,59 @@
+// Colors
+$primary-red: #ef4056;
+$dark-red: #d32f45;
+
+$white: #ffffff;
+$black: #000000;
+
+$gray-100: #f5f5f5;
+$gray-200: #ececec;
+$gray-300: #dcdcdc;
+
+$gray-text: #4a4a4a;
+
+// Breakpoints
+// استفاده از px برای سازگاری بیشتر با مقادیر عددی که ممکن است در آینده اضافه شود
+// مقادیر بر اساس اندازه‌های استاندارد دستگاه‌ها (مثل موبایل، تبلت، دسکتاپ)
+$breakpoints: (
+  sm: 576px,   // Mobile (small)
+  md: 768px,   // Tablet (medium)
+  lg: 992px,   // Desktop (large)
+  xl: 1200px,  // Desktop (extra large)
+  xxl: 1400px  // Desktop (very extra large) - مطابق با $max-width شما
+);
+
+// برای دسترسی راحت‌تر به مقادیر عددی، می‌توان این‌ها را نیز تعریف کرد (اختیاری)
+$breakpoint-sm-value: 576px;
+$breakpoint-md-value: 768px;
+$breakpoint-lg-value: 992px;
+$breakpoint-xl-value: 1200px;
+$breakpoint-xxl-value: 1400px;
+
+// Spacing
+// مثال‌هایی از مقادیر فاصله. می‌توانید بر اساس نیازتان اضافه کنید.
+// معمولاً مضربی از 4px یا 8px هستند.
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Typography (مثال‌هایی برای اندازه فونت)
+$font-size-base: 1rem; // معمولاً 16px
+$font-size-sm: 0.875rem; // 14px
+$font-size-lg: 1.25rem; // 20px
+$font-size-h1: 2.5rem; // 40px
+$font-size-h2: 2rem; // 32px
+
+// Other
+$header-height: 70px;
+$max-width: 1400px;
+
+$radius: 6px;
+
+$transition: 0.25s ease;
+
+// Box Shadow (مثال)
+$box-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+$box-shadow-lg: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);

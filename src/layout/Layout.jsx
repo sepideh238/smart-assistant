@@ -1,17 +1,78 @@
+/*
+====================================================
+1️⃣ ایمپورت‌ها
+====================================================
+
+Outlet:
+- از react-router-dom می‌آید
+- محل نمایش صفحات داخلی (Route ها) است
+
+Header:
+- هدر ثابت سایت (بالای صفحه)
+
+Footer:
+- فوتر ثابت سایت (پایین صفحه)
+
+Layout.scss:
+- استایل کلی لایه‌بندی صفحه
+*/
+
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer"
+import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
-export default function Layout(){
-    return(
-        <div className="layout">
-        <Header/>
 
-        <main className="layout__main">
-            <Outlet/>
-        </main>
 
-        <Footer/>
+
+/*
+====================================================
+2️⃣ کامپوننت Layout
+====================================================
+
+این کامپوننت اسکلت اصلی سایت را می‌سازد.
+
+ساختار کلی:
+- Header (همیشه نمایش داده می‌شود)
+- main (محتوای متغیر صفحات)
+- Footer (همیشه نمایش داده می‌شود)
+
+هر صفحه‌ای که داخل Router تعریف شده
+در محل <Outlet /> نمایش داده می‌شود.
+*/
+
+export default function Layout() {
+  return (
+    <div className="layout">
+
+      {/* ======================================
+          3️⃣ هدر سایت
+          ======================================
+          هدر در تمام صفحات ثابت است
+      */}
+      <Header />
+
+
+
+      {/* ======================================
+          4️⃣ محتوای اصلی صفحات
+          ======================================
+          Outlet یعنی:
+          هر صفحه‌ای مثل Search، Home، Product
+          اینجا رندر می‌شود
+      */}
+      <main className="layout__main">
+        <Outlet />
+      </main>
+
+
+
+      {/* ======================================
+          5️⃣ فوتر سایت
+          ======================================
+          فوتر هم در تمام صفحات ثابت است
+      */}
+      <Footer />
+
     </div>
-    )
+  );
 }

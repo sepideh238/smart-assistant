@@ -1,0 +1,60 @@
+/* Mixins */
+
+// Media Query Mixin
+// برای استفاده آسان از breakpoint ها در استایل‌دهی ریسپانسیو
+// مثال: @include media('md') { /* styles for tablet and up */ }
+//       @include media('<=sm') { /* styles for mobile */ }
+@mixin media($breakpoint) {
+  $sm: map-get($breakpoints, sm);
+  $md: map-get($breakpoints, md);
+  $lg: map-get($breakpoints, lg);
+  $xl: map-get($breakpoints, xl);
+  $xxl: map-get($breakpoints, xxl);
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    // For min-width queries (e.g., @include media('md'))
+    // این حالت برای وقتی استفاده میشه که می‌خواهیم استایل‌ها از یک سایز به بالا اعمال بشن
+    // یعنی برای tablet, desktop, ...
+    $value: map-get($breakpoints, $breakpoint);
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else if $breakpoint == "xs" {
+     // Specific case for extra small devices if needed, often mobile-first doesn't need explicit min-width xs
+     // Or if you want to target below sm explicitly
+     // @media (max-width: #{$sm - 1px}) { @content; } // Example for strictly less than sm
+     // For simplicity, we'll assume mobile-first and default styles cover xs.
+     // If you need explicit "xs" styles, you might adjust this part.
+     // For now, let's focus on min-width and max-width relative to breakpoints.
+      @content; // Default styles for mobile-first approach
+  } @else if str-slice($breakpoint, 1, 3) == "max" {
+    // For max-width queries (e.g., @include media('max-md'))
+    // این حالت برای وقتی استفاده میشه که می‌خواهیم استایل‌ها تا قبل از یک سایز خاص اعمال بشن
+    // یعنی برای موبایل و تبلت (اگر max-md باشد)
+    $value: map-get($breakpoints, str-slice($breakpoint, 5)); // Remove "max-" prefix
+    @media (max-width: #{$value - 1px}) { // Subtract 1px to ensure no overlap at the breakpoint
+      @content;
+    }
+  } @else {
+    // Fallback if the breakpoint key is not found
+    @warn "Breakpoint `#{$breakpoint}` not found in $breakpoints map.";
+  }
+}
+
+// Optional: A simple mixin for clearing floats (if needed, though Flexbox/Grid are preferred now)
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Example: A mixin for generating vendor prefixes for a transition property
+// @mixin vendor-prefix($property, $value) {
+//   #{$property}: #{$value};
+//   -webkit-#{$property}: #{$value};
+//   -moz-#{$property}: #{$value};
+//   -o-#{$property}: #{$value};
+// }
+// Usage: @include vendor-prefix(transition, $transition); // $transition defined in _variables.scss

@@ -1,61 +1,118 @@
 /* =========================================
-   MAIN FOOTER
+   متغیرها (Variables)
+   اگر بعداً رنگ یا فاصله عوض شد فقط اینجا تغییر می‌دهیم
 ========================================= */
-.main-footer {
-  width: 100%;
-  background: #ef4056;
-  color: #fff;
 
+$footer-bg: #ef4056; // رنگ اصلی فوتر
+$footer-text: #ffffff; // رنگ متن‌ها
+$footer-border: rgba(255, 255, 255, 0.12); // خط جداکننده ستون‌ها
+$footer-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06); // سایه بالای فوتر
+
+$font-base: 14px; // سایز متن معمولی
+$font-title: 15px; // سایز عنوان هر ستون
+
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+
+
+/* =========================================
+   میکسین‌ها (Mixins)
+========================================= */
+
+/* میکسین برای وسط‌چین کردن عناصر با flex */
+@mixin flex-center {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
 
+/* میکسین برای ریسپانسیو */
+@mixin respond($breakpoint) {
+
+  /* موبایل */
+  @if $breakpoint == mobile {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+
+  /* تبلت */
+  @if $breakpoint == tablet {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+
+/* =========================================
+   فوتر اصلی
+========================================= */
+
+.main-footer {
+
+  width: 100%;
+  background: $footer-bg;
+  color: $footer-text;
   font-family: Tahoma, Arial, sans-serif;
-  line-height: 1.25;
+  line-height: 1.4;
 
-  /* سایه لطیف بالای فوتر */
-  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.06);
+  /* سایه بالای فوتر */
+  box-shadow: $footer-shadow;
 
-  /* =========================================
-     CONTAINER (ایزوله: فقط داخل فوتر)
-  ========================================= */
+
+  /* کانتینر داخلی فوتر */
   .footer__container {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 0 16px;
+    padding: 0 $spacing-md;
   }
 
+
   /* =========================================
-     FOOTER TOP (ستون‌ها)
+     بخش بالایی فوتر (ستون‌ها)
   ========================================= */
+
   .footer-top {
-    display: flex;
-    align-items: flex-start;
-    padding: 14px 0 3px;
+
+    /* استفاده از grid برای ستون‌ها */
+    display: grid;
+
+    /* در دسکتاپ 4 ستون */
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: $spacing-lg;
+
+    padding: $spacing-lg 0;
   }
 
+
   /* =========================================
-     FOOTER COLUMN
+     هر ستون فوتر
   ========================================= */
+
   .footer-col {
-    flex: 1;
-    padding: 0 12px;
-    border-right: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-right: 1px solid $footer-border;
+    padding-right: $spacing-md;
+
+    /* آخرین ستون خط نداشته باشد */
+    &:last-child {
+      border-right: none;
+    }
 
     ul {
       list-style: none;
-      margin: 0;
       padding: 0;
+      margin: 0;
 
       li {
-        margin-bottom: 4px;
+
+        margin-bottom: $spacing-sm;
 
         a {
-          color: #fff;
+          color: $footer-text;
           text-decoration: none;
-          font-size: 14px;
+          font-size: $font-base;
           font-weight: 300;
-          letter-spacing: -0.2px;
           transition: opacity 0.2s ease;
 
           &:hover {
@@ -63,13 +120,16 @@
           }
         }
 
+        /* اولین آیتم هر ستون = عنوان */
         &:first-child {
-          margin-bottom: 10px;
+
+          margin-bottom: $spacing-md;
 
           a {
-            font-size: 15px;
+            font-size: $font-title;
             font-weight: 600;
-            opacity: 0.95;
+
+            /* قابل کلیک نباشد */
             pointer-events: none;
             cursor: default;
           }
@@ -78,26 +138,28 @@
     }
   }
 
-  .footer-col:last-child {
-    border-right: none;
-  }
 
   /* =========================================
-     PAYMENT ICONS
+     آیکون‌های پرداخت
   ========================================= */
+
   .payment-icons {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 10px;
+
+    @include flex-center;
+
+    gap: $spacing-sm;
+    margin-top: $spacing-sm;
+
     flex-wrap: wrap;
   }
 
   .icon-box {
+
     width: 50px;
     height: 30px;
-    flex-shrink: 0;
+
     cursor: pointer;
+
     transition: transform 0.2s ease;
 
     &:hover {
@@ -107,39 +169,39 @@
     .payment-svg {
       width: 100%;
       height: 100%;
-      display: block;
     }
   }
 
+
   /* =========================================
-     FOLLOW ICONS
+     آیکون شبکه‌های اجتماعی
   ========================================= */
+
   .follow-icons {
-    display: flex;
-    align-items: center;
+
+    @include flex-center;
+
     gap: 10px;
-    margin-top: 10px;
+    margin-top: $spacing-sm;
+
     flex-wrap: wrap;
   }
 
   .social-svg {
+
     width: 32px;
     height: 32px;
-    display: block;
+
     cursor: pointer;
+
     transition: transform 0.2s ease;
 
     &:hover {
       transform: translateY(-3px);
     }
 
-    .social-bg {
-      fill: #d9d9d9;
-    }
-
-    .social-fill {
-      fill: #ffffff;
-    }
+    .social-bg { fill: #d9d9d9; }
+    .social-fill { fill: #ffffff; }
 
     .social-stroke {
       fill: none;
@@ -148,21 +210,88 @@
     }
 
     .social-accent {
-      fill: #ef4056;
+      fill: $footer-bg;
     }
   }
 
+
   /* =========================================
-     FOOTER BOTTOM
+     بخش پایین فوتر (copyright)
   ========================================= */
+
   .footer-bottom {
+
     text-align: center;
-    padding: 5px 0 6px;
-    font-size: 13.5px;
+
+    padding: $spacing-sm 0;
+
+    font-size: 13px;
+
     opacity: 0.9;
 
     p {
       margin: 0;
+    }
+  }
+
+
+
+  /* =========================================
+     حالت تبلت
+  ========================================= */
+
+  @include respond(tablet) {
+
+    .footer-top {
+
+      /* تبدیل 4 ستون به 2 ستون */
+      grid-template-columns: repeat(2, 1fr);
+
+      row-gap: $spacing-lg;
+    }
+
+    .footer-col {
+
+      border-right: none;
+
+      border-bottom: 1px solid $footer-border;
+
+      padding-bottom: $spacing-md;
+    }
+  }
+
+
+
+  /* =========================================
+     حالت موبایل
+  ========================================= */
+
+  @include respond(mobile) {
+
+    .footer-top {
+
+      /* تمام ستون‌ها زیر هم */
+      grid-template-columns: 1fr;
+
+      text-align: center;
+    }
+
+    .footer-col {
+
+      border: none;
+
+      padding: 0;
+    }
+
+    /* آیکون‌ها وسط قرار بگیرند */
+
+    .payment-icons,
+    .follow-icons {
+      justify-content: center;
+    }
+
+    .footer-bottom {
+      font-size: 12px;
     }
   }
 }

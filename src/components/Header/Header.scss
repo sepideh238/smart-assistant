@@ -1,118 +1,300 @@
-.main-header {
-  min-height: 72px;
-  background-color: #ffffff;
+/* =================================
+   Mixins
+   ================================= */
 
+/*
+میکسین برای flex center
+برای جلوگیری از تکرار display:flex + align-items
+*/
+@mixin flex-center($justify: center) {
   display: flex;
   align-items: center;
+  justify-content: $justify;
+}
+
+
+/*
+میکسین برای hover نرم روی آیکون‌ها
+*/
+@mixin hover-lift {
+  transition: background-color 0.2s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.04);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  }
+}
+
+
+
+/* =================================
+   Header
+   ================================= */
+
+.main-header {
+
+  /* ارتفاع استاندارد هدر */
+  min-height: 72px;
+
+  background-color: #ffffff;
+
+  /* قرار گرفتن آیتم‌ها در وسط عمودی */
+  @include flex-center;
 
   margin: 0;
   border: none;
   border-radius: 0;
 
   border-bottom: 1px solid #eef0f2;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+
+  /* سایه ملایم برای جدا شدن از صفحه */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 
   width: 100%;
 
+
+
+  /* =========================
+     Container
+     ========================= */
+
   .container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
+    /*
+    container کنترل عرض صفحه را دارد
+    */
+    @include flex-center(space-between);
 
     width: 100%;
     max-width: 1600px;
+
     margin: 0 auto;
+
     padding: 0 20px;
+
     gap: 16px;
+
     min-height: 72px;
   }
 
+
+
+  /* =========================
+     Left section (Logo)
+     ========================= */
+
   .header-left {
-    display: flex;
-    align-items: center;
+
+    @include flex-center(flex-start);
+
+    /* جلوگیری از کوچک شدن لوگو */
     flex-shrink: 0;
   }
 
   .logo {
-    display: flex;
-    align-items: center;
+
+    @include flex-center(flex-start);
+
     text-decoration: none;
   }
 
   .logo img {
+
     height: 32px;
+
     width: auto;
+
     display: block;
+
     margin: 0;
+
     padding: 0;
+
     line-height: 1;
   }
 
+
+
+  /* =========================
+     Search wrapper
+     (برای صفحات result / compare)
+     ========================= */
+
   .search-wrapper {
+
+    /*
+    باعث می‌شود search فضای وسط را بگیرد
+    */
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    @include flex-center(center);
+
     max-width: 600px;
+
     margin: 0 12px;
+
     position: relative;
+
     min-width: 260px;
   }
 
+
+
+  /* =========================
+     Right section (icons)
+     ========================= */
+
   .header-right {
-    display: flex;
-    align-items: center;
+
+    @include flex-center(flex-end);
+
     flex-shrink: 0;
   }
 
+
+
   .header-actions {
-    display: flex;
-    align-items: center;
+
+    @include flex-center;
+
     gap: 18px;
+
     list-style: none;
+
     margin: 0;
+
     padding: 0;
   }
 
+
+
+  /* =========================
+     Action items
+     ========================= */
+
   .action-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    @include flex-center;
 
     width: 44px;
+
     height: 44px;
+
     border-radius: 12px;
 
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-    }
+    @include hover-lift;
 
     svg {
+
       display: block;
+
       width: 28px;
+
       height: 28px;
     }
   }
 
+
+
+  /* =========================
+     Profile item
+     ========================= */
+
   .profile-item {
+
     background-color: #f7f7f8;
+
     border: 1px solid #eceef1;
+
     border-radius: 14px;
 
     svg {
+
       width: 31px;
+
       height: 31px;
+
       stroke: #111;
     }
 
     &:hover {
+
       background-color: #f1f3f5;
+
       border-color: #e3e6ea;
     }
   }
+
+}
+
+
+
+/* =================================
+   Responsive
+   ================================= */
+
+@media (max-width: 768px) {
+
+  .main-header {
+
+    .container {
+
+      /* padding کمتر در موبایل */
+      padding: 0 14px;
+
+      gap: 10px;
+    }
+
+
+
+    /* کوچک‌تر شدن لوگو */
+
+    .logo img {
+
+      height: 28px;
+    }
+
+
+
+    /* فاصله کمتر بین آیکون‌ها */
+
+    .header-actions {
+
+      gap: 12px;
+    }
+
+
+
+    /* کوچک‌تر شدن آیکون‌ها */
+
+    .action-item {
+
+      width: 40px;
+
+      height: 40px;
+
+      svg {
+
+        width: 24px;
+
+        height: 24px;
+      }
+    }
+
+
+
+    .profile-item svg {
+
+      width: 26px;
+
+      height: 26px;
+    }
+
+  }
+
 }
