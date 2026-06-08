@@ -1,40 +1,36 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import SearchBox from "../../components/SearchBox/SearchBox";
-import ProductCard from "../../components/ProductCard/ProductCard";
-import "./Search.scss";
-
+import CategoryList from "../../components/CategoryList/CategoryList";
+import "./Search.scss"; // این فایل در قدم بعدی جادو می‌کند
 
 export default function Search() {
   return (
-    <div style={{ padding: "24px" }}>
-      <h1>Search Page</h1>
+    <div className="search-page">
+      {/* بخش بالایی شامل عنوان و باکس جستجو */}
+      <div className="search-page__header">
+        <h1>Smart Assistant</h1>
+        <div className="search-page__box-container">
+          <SearchBox />
+        </div>
+      </div>
 
-      {/* تست خنثی SearchBox */}
-<div style={{ maxWidth: "900px", margin: "16px auto" }}>
-  <SearchBox />
-</div>
+      {/* 
+          بخش بسیار مهم:
+          این DIV همان ظرفی است که کارت‌ها را به صورت 4 تایی می‌چیند.
+          کلاس search-results-grid را به دقت بنویس.
+      */}
+      <div className="search-results-grid">
+        <CategoryList />
+      </div>
 
-{/* بخش اصلی نمایش محصولات با کلاس اختصاصی */}
-<div className="search-results-grid">
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-  <ProductCard />
-</div>
-
-
-
-      <div style={{ display: "flex", gap: "12px", marginTop: "24px" }}>
+      {/* دکمه‌های ناوبری پایین صفحه */}
+      <div className="search-navigation">
         <Link to="/result">
-          <button>Go To Result</button>
+          <button className="btn-nav">Go To Result</button>
         </Link>
-
         <Link to="/compare">
-          <button>Go To Compare</button>
+          <button className="btn-nav btn-nav--secondary">Go To Compare</button>
         </Link>
       </div>
     </div>

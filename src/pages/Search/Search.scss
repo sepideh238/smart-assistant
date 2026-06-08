@@ -1,20 +1,97 @@
-.search-results-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); // دسکتاپ: 4 ستون
-  gap: 24px;
-  margin-top: 24px;
-}
+/* کانتینر کلی صفحه */
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
 
-/* تبلت */
-@media (max-width: 1024px) {
-  .search-results-grid {
-    grid-template-columns: repeat(2, 1fr);
+  &__header {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+    margin-bottom: 30px;
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__box-container {
+    width: 100%;
   }
 }
 
-/* موبایل */
-@media (max-width: 600px) {
-  .search-results-grid {
+/* 
+   بخش اصلی: چیدمان کارت‌ها 
+   ========================================= */
+.search-results-grid {
+  display: grid;
+  width: 100%;
+  max-width: 1200px; // جلوگیری از کش آمدن بیش از حد در مانیتور بزرگ
+  margin: 0 auto;
+  
+  /* گام 1: دسکتاپ - 4 ستون مساوی */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 24px; // فاصله بین کارت‌ها
+
+  /* گام 2: تبلت - اگر عرض صفحه کمتر از 1024px شد -> 2 ستون */
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  /* گام 3: موبایل - اگر عرض صفحه کمتر از 600px شد -> 1 ستون */
+  @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    padding: 0 15px;
+  }
+}
+
+/* استایل دکمه‌های پایین صفحه */
+.search-navigation {
+  display: flex;
+  gap: 15px;
+  margin-top: 40px;
+  padding-bottom: 40px;
+
+  .btn-nav {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+
+    &:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    &--secondary {
+      background-color: #6c757d;
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
+  }
+}
+
+/* برای موبایل دکمه‌ها زیر هم بیایند */
+@media (max-width: 480px) {
+  .search-navigation {
+    flex-direction: column;
+    width: 100%;
+    
+    a, .btn-nav {
+      width: 100%;
+    }
   }
 }
