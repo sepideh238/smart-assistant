@@ -15,11 +15,6 @@ export default function CategoryCard({ imageUrl, title, price }) {
           {title}
         </h3>
 
-        <div className="category-card__price">
-          <span className="amount">{price}</span>
-          <span className="unit">تومان</span>
-        </div>
-
       </div>
 
     </div>

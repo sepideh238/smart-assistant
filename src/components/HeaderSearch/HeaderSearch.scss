@@ -1,0 +1,53 @@
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 600px; // اگر لازم بود تغییر بده
+  height: 44px;
+  background-color: #f0f0f1; // خاکستری روشن مثل دیجی‌کالا
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ===== Input ===== */
+.header-search__input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0 16px 0 40px; // جا برای آیکن سمت چپ
+  font-size: 14px;
+}
+
+/* ===== آیکن داخل اینپوت ===== */
+.header-search__icon-left {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: #a1a3a8; // خاکستری آیکن
+}
+
+/* ===== دکمه قرمز سمت راست ===== */
+.header-search__button {
+  width: 48px;
+  height: 100%;
+  border: none;
+  background-color: #ef4056; 
+  border-radius: 0 8px 8px 0; // لبه‌های سمت راست گرد شود
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d32f2f; // کمی تیره تر موقع هاور
+  }
+
+  svg {
+    width: 20px;  // اندازه ایکون را اینجا کنترل کن
+    height: 20px;
+  }
+}

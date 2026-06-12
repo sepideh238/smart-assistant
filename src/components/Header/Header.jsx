@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import './Header.scss';
 import logo from '../../assets/images/digikala.png';
-// import SearchBox from '../SearchBox/SearchBox';
+import HeaderSearch from '../HeaderSearch/HeaderSearch';
 
-export default function Header() {
+
+export default function Header({ showSearch }) {
   return (
     <header className="main-header">
       <div className="container">
@@ -13,11 +14,13 @@ export default function Header() {
           </Link>
         </div>
 
-        {/*
-        <div className="search-wrapper">
-          <SearchBox />
-        </div>
-        */}
+    
+        {showSearch && (
+  <div className="search-wrapper">
+    <HeaderSearch />
+  </div>
+)}
+       
 
         <div className="header-right">
           <ul className="header-actions">

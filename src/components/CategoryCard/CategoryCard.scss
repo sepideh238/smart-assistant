@@ -70,31 +70,4 @@
     margin-bottom: 10px;
     font-family: Arial, sans-serif; // نمایش انگلیسی تمیز
   }
-
-  /*
-  ========================================
-  4️⃣ بخش قیمت
-  ========================================
-  */
-  &__price {
-    color: #ef394e; // رنگ قرمز فروشگاهی
-    font-weight: 700;
-    font-size: 18px;
-
-    /*
-    واحد پول (ریال)
-    */
-    .unit {
-      font-size: 14px;
-      margin-right: 4px;
-    }
-
-    /*
-    مقدار عددی قیمت
-    */
-    .amount {
-      font-size: 18px;
-      letter-spacing: 0.5px;
-    }
-  }
 }
