@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
-import Search from "./pages/Search/Search"; // <-- اصلاح شده
-import Result from "./pages/Result";
-import Compare from "./pages/Compare";
+import Search from "./pages/Search/Search";
+import Result from "./pages/Result/Result";   // <-- اصلاح شد: اضافه کردن /Result
+import Compare from "./pages/Compare/Compare"; // <-- اصلاح شد: اضافه کردن /Compare
 
 export default function App() {
   return (
@@ -15,4 +15,3 @@ export default function App() {
     </Routes>
   );
 }
-

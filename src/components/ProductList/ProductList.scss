@@ -1,0 +1,23 @@
+/* 
+  استفاده از Grid برای چیدمان کارت‌های محصول
+  توضیح auto-fill: به تعداد ممکن ستون می‌سازد تا فضای والد پر شود.
+  توضیح minmax: هر کارت حداقل 220px و حداکثر تمام فضای باقی‌مانده (1fr) را می‌گیرد.
+*/
+.product-list { // تغییر نام از product-grid به product-list برای هماهنگی با JSX
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;         // کمی فاصله را بیشتر کردیم برای زیبایی بیشتر
+  padding: 30px;     // فاصله از لبه‌های صفحه
+  width: 100%;
+  max-width: 1200px; // اضافه شد: برای اینکه در مانیتورهای خیلی بزرگ محصولات خیلی از هم دور نشوند
+  margin: 0 auto;    // مرکز‌چین کردن کل لیست در صفحه
+  box-sizing: border-box;
+
+  /* انیمیشن ملایم برای ظاهر شدن کل لیست */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,69 @@
+/*
+  Result Page Styles
+*/
+
+.result-page {
+  background-color: #ffffff;
+  color: #111;
+  min-height: 100vh;
+  /* اضافه کردن فلکس به کل صفحه برای اطمینان از تراز شدن محتوا */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 20px;
+}
+
+.result-title {
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 600;
+  width: 100%;
+  text-align: center; /* وسط‌چین کردن تیتر */
+}
+
+/* اصلاح بخش دکمه‌ها برای وسط‌چین شدن */
+.search-navigation {
+  display: flex;
+  justify-content: center; /* این خط دکمه‌ها را به وسط می‌برد */
+  align-items: center;
+  gap: 15px;
+  margin-top: 40px;
+  padding-bottom: 40px;
+  width: 100%; /* اشغال تمام عرض برای امکان وسط‌چین کردن */
+
+  .btn-nav {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ef4056;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    min-width: 160px; /* اندازه ثابت برای زیبایی بیشتر */
+
+    &:hover {
+      background-color:  #d13245;
+      transform: translateY(-2px);
+    }
+
+    &--secondary {
+      background-color: #6c757d;
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
+  }
+}
+
+/* برای موبایل دکمه‌ها زیر هم بیایند */
+@media (max-width: 480px) {
+  .search-navigation {
+    flex-direction: column;
+    width: 100%;
+    
+    a, .btn-nav {
+      width: 100%;
+    }
+  }
+}
