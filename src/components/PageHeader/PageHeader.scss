@@ -1,0 +1,63 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid #f0f0f1; // خط بسیار کمرنگ
+  margin-bottom: 30px;
+
+  .header-info-group {
+    .main-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #3f4044; // خاکستری تیره استاندارد
+      margin: 0 0 4px 0;
+    }
+    .sub-title {
+      font-size: 12px;
+      color: #81858b; // خاکستری متوسط برای توضیحات
+      margin: 0;
+    }
+  }
+
+  .header-sort-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .sort-label {
+      font-size: 14px;
+      color: #717171;
+    }
+
+    .sort-select {
+      appearance: none;
+      -webkit-appearance: none;
+      
+      padding: 10px 35px 10px 14px;
+      border: 1px solid #e0e0e2; // رنگ خنثی
+      border-radius: 8px;        // گردی ملایم و استاندارد
+      background-color: #ffffff;
+      font-size: 14px;
+      color: #3f4044;
+      cursor: pointer;
+      outline: none;
+      min-width: 170px;
+      transition: all 0.2s ease;
+
+      /* فلش خاکستری ظریف */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2381858b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+
+      &:hover {
+        border-color: #a1a3a8; // در هاور کمی تیره تر می شود
+      }
+
+    &:focus {
+        border-color: #81858b;
+      }
+    }
+  }
+}

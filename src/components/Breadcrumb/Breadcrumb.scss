@@ -1,0 +1,40 @@
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;           // فاصله بین آیتم‌ها
+  padding: 15px 0;    // فاصله از بالا و پایین
+  font-size: 13px;    // فونت ریز مشابه تصویر
+  color: #666;        // رنگ خاکستری متن
+  width: 100%;        // کل عرض را می‌گیرد اما محتوا به چپ می‌چسبد
+
+  .breadcrumb-item {
+    cursor: pointer;
+    white-space: nowrap; // جلوگیری از شکستن خط در موبایل
+
+    &:hover {
+      color: #ef4056; // تغییر رنگ به قرمز در هنگام هاور (اختیاری)
+    }
+
+    &.active {
+      color: #333;      // رنگ تیره‌تر برای صفحه فعلی
+      font-weight: 500;
+      cursor: default;
+      &:hover { color: #333; }
+    }
+  }
+
+  .breadcrumb-separator {
+    color: #ccc;
+    font-size: 11px;
+    user-select: none; // علامت > قابل انتخاب نباشد
+  }
+}
+
+// برای ریسپانسیو بهتر در موبایل‌های خیلی کوچک
+@media (max-width: 480px) {
+  .breadcrumb-container {
+    font-size: 12px;
+    overflow-x: auto; // اگر متن خیلی طولانی بود، در موبایل اسکرول شود و به هم نریزد
+    padding: 10px 0;
+  }
+}
