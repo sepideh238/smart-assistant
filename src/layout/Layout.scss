@@ -1,15 +1,29 @@
 .layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  
-    width: 100%;
-    overflow-x: hidden; // مهم: جلوگیری از اسکرول/بیرون‌زدگی افقی
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.layout__main {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 992px) {
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
   }
-  
-  .layout__main {
-    flex: 1;
-    width: 100%;
-    min-width: 0; // مهم: اجازه می‌دهد آیتم‌های داخلی در flex کوچک شوند
-  }
-  
+}

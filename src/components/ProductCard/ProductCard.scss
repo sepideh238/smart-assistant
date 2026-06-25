@@ -3,72 +3,27 @@
 
 /* ========================================
 Product Card
-کارت محصول
-
-هدف این فایل:
-- ساخت کارت محصول پایدار و قابل استفاده داخل Grid/Flex
-- جلوگیری از بیرون‌زدگی تصویر و متن
-- کنترل ارتفاع عنوان محصول
-- آماده‌سازی کارت برای ریسپانسیو موبایل
 ======================================== */
 
 .product-card {
-  /*
-    box-sizing باعث می‌شود padding و border
-    باعث بزرگ‌تر شدن غیرمنتظره کارت نشوند.
-  */
   box-sizing: border-box;
-
-  /*
-    کارت باید عرض والد خودش را بگیرد.
-    این برای وقتی مهم است که کارت داخل grid یا flex قرار می‌گیرد.
-  */
   width: 100%;
-
-  /*
-    min-width: 0 برای جلوگیری از بیرون‌زدگی متن‌های طولانی
-    در layout های grid/flex ضروری است.
-  */
   min-width: 0;
-
   background-color: $white;
   border: 1px solid $gray-200;
   border-radius: $radius;
   padding: $spacing-md;
-
-  /*
-    محتوای کارت به صورت ستونی چیده می‌شود:
-    تصویر بالا، اطلاعات محصول پایین.
-  */
+  
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /*
-    height: auto باعث می‌شود کارت طبیعی رشد کند.
-    min-height: 100% کمک می‌کند اگر داخل grid بود،
-    ارتفاعش با کارت‌های دیگر هماهنگ‌تر شود.
-  */
-  height: auto;
-  min-height: 100%;
-
-  /*
-    overflow: hidden باعث می‌شود اگر تصویر یا متن از محدوده کارت بیرون زد،
-    ظاهر کارت خراب نشود.
-  */
+  
+  /* حذف min-height: 100% برای جلوگیری از کشیدگی کارت‌ها در گرید */
+  height: 100%; 
   overflow: hidden;
-
   cursor: pointer;
-
-  /*
-    transition برای حرکت نرم hover و سایه کارت
-  */
   transition: transform $transition, box-shadow $transition;
 
-  /*
-    افکت hover فقط ظاهر کارت را بهتر می‌کند.
-    این نباید باعث روی‌هم‌افتادن دائمی کارت‌ها شود.
-  */
   &:hover {
     box-shadow: $box-shadow-sm;
     transform: translateY(-4px);
@@ -76,51 +31,20 @@ Product Card
 
   /* ========================================
   Product Image
-  بخش تصویر محصول
   ======================================== */
-
   &__image {
     box-sizing: border-box;
-
-    /*
-      تصویر عرض کامل فضای کارت را می‌گیرد.
-    */
     width: 100%;
-
-    /*
-      ارتفاع ثابت برای تصویر باعث می‌شود کارت‌ها
-      به خاطر تفاوت اندازه عکس‌ها نامنظم نشوند.
-    */
     height: 140px;
-
-    /*
-      تصویر داخل این باکس وسط‌چین می‌شود.
-    */
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-bottom: $spacing-sm;
-
-    /*
-      اگر عکس بزرگ‌تر از باکس بود، بیرون نزند.
-    */
     overflow: hidden;
-
-    /*
-      اجازه نمی‌دهیم بخش تصویر در flex کوچک شود.
-    */
     flex-shrink: 0;
 
     img {
-      /*
-        display: block فاصله‌های ناخواسته inline image را حذف می‌کند.
-      */
       display: block;
-
-      /*
-        محصول باید کامل دیده شود، نه اینکه بریده شود.
-      */
       max-width: 100%;
       max-height: 100%;
       width: auto;
@@ -131,123 +55,81 @@ Product Card
 
   /* ========================================
   Product Info
-  بخش اطلاعات محصول
   ======================================== */
-
   &__info {
     box-sizing: border-box;
-
     width: 100%;
     min-width: 0;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
     text-align: center;
+    flex-grow: 1; /* باعث کش آمدن بخش اطلاعات برای هم‌تراز شدن قیمت‌ها می‌شود */
   }
 
   /* ========================================
   Product Title
-  عنوان محصول
   ======================================== */
-
   &__title {
     width: 100%;
     min-width: 0;
-
     font-size: $font-size-sm;
     font-weight: 600;
     color: $gray-text;
     line-height: 1.4;
-
     margin: 0 0 $spacing-xs;
-
-    /*
-      جلوگیری از بزرگ شدن بیش از حد کارت:
-      عنوان حداکثر دو خط نمایش داده می‌شود.
-    */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   /* ========================================
   Product Price
-  قیمت محصول
   ======================================== */
-
   &__price {
     width: 100%;
-
     font-size: $font-size-base;
     font-weight: 700;
     color: $primary-red;
     line-height: 1.5;
-
-    margin: 0;
+    margin-top: auto; /* قیمت را به انتهای کارت می‌چسباند تا در یک خط قرار گیرند */
   }
 
-  /*
-    فاصله کوچک بین عدد قیمت و واحد پول
-  */
   .price-value {
     margin-right: 4px;
   }
 
-  /*
-    اندازه فونت واحد پول
-  */
   .price-currency {
     font-size: $font-size-sm;
   }
 }
 
 /* ========================================
-Responsive Product Card
-ریسپانسیو کارت محصول
-
-این بخش فقط ظاهر خود کارت را در موبایل تنظیم می‌کند.
-چیدمان چند کارت کنار هم مربوط به ProductList یا Result است.
+Responsive Product Card (Mobile Viewport)
 ======================================== */
 
+// استفاده از میکس‌این پروژه برای موبایل
 @include media("max-sm") {
   .product-card {
-    /*
-      در موبایل padding کمتر می‌شود تا کارت فضای کمتری بگیرد.
-    */
     padding: $spacing-sm;
 
-    /*
-      در موبایل hover واقعی نداریم.
-      حذف transform جلوی لرزش یا جابه‌جایی ناخواسته را می‌گیرد.
-    */
     &:hover {
       transform: none;
+      box-shadow: none;
     }
 
-    /*
-      ارتفاع تصویر در موبایل کمتر می‌شود.
-    */
     &__image {
       height: 110px;
       margin-bottom: $spacing-xs;
     }
 
-    /*
-      اندازه و فاصله عنوان در موبایل کنترل می‌شود.
-    */
     &__title {
       font-size: $font-size-sm;
-      line-height: 1.35;
+      line-height: 1.3;
     }
 
-    /*
-      قیمت در موبایل کوچک‌تر می‌شود.
-    */
     &__price {
       font-size: $font-size-sm;
     }

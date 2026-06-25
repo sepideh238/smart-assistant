@@ -1,23 +1,68 @@
-/* 
-  استفاده از Grid برای چیدمان کارت‌های محصول
-  توضیح auto-fill: به تعداد ممکن ستون می‌سازد تا فضای والد پر شود.
-  توضیح minmax: هر کارت حداقل 220px و حداکثر تمام فضای باقی‌مانده (1fr) را می‌گیرد.
-*/
-.product-list { // تغییر نام از product-grid به product-list برای هماهنگی با JSX
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;         // کمی فاصله را بیشتر کردیم برای زیبایی بیشتر
-  padding: 30px;     // فاصله از لبه‌های صفحه
-  width: 100%;
-  max-width: 1200px; // اضافه شد: برای اینکه در مانیتورهای خیلی بزرگ محصولات خیلی از هم دور نشوند
-  margin: 0 auto;    // مرکز‌چین کردن کل لیست در صفحه
-  box-sizing: border-box;
+@use "../../styles/abstracts/variables" as *;
+@use "../../styles/abstracts/mixins" as *;
 
-  /* انیمیشن ملایم برای ظاهر شدن کل لیست */
+/* ========================================
+Product List Grid
+======================================== */
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $spacing-lg;
+  width: 100%;
+  margin: 0 auto;
+  padding: $spacing-lg 0;
+  box-sizing: border-box;
+  align-items: start;
   animation: fadeIn 0.5s ease-in-out;
 }
 
+/* ========================================
+Laptop
+======================================== */
+
+@include media("max-xl") {
+  .product-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+Tablet
+======================================== */
+
+@include media("max-md") {
+  .product-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $spacing-md;
+    padding: $spacing-md 0;
+  }
+}
+
+/* ========================================
+Mobile
+======================================== */
+
+@include media("max-sm") {
+  .product-list {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
+  }
+}
+
+/* ========================================
+Animation
+======================================== */
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

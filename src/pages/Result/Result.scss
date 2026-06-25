@@ -1,44 +1,104 @@
+@use "sass:color";
+@use "../../styles/abstracts/variables" as *;
+
+/* ========================================
+Result Page Wrapper
+======================================== */
 .result-page {
-  background-color: #ffffff;
+  background-color: $white;
   min-height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
-  .container {
-    max-width: 1350px;     // حداکثر عرض محتوا
-    margin: 0 auto;        // وسط‌چین کردن کل محتوا در مانیتور
-    padding: 0 30px;       // ایجاد فاصله ۳۰ پیکسلی از چپ و راست (حل مشکل چسبندگی)
+/* result-page و container روی یک عنصر هستند */
+.result-page.container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding-top: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767.98px) {
+  .result-page.container {
+    padding-left: $spacing-md;
+    padding-right: $spacing-md;
   }
 }
 
-.product-list-section {
-  margin-top: 20px;
-  width: 100%;
+@media (max-width: 575.98px) {
+  .result-page.container {
+    padding-left: $spacing-sm;
+    padding-right: $spacing-sm;
+  }
 }
 
+/* ========================================
+Product List Section
+======================================== */
+.product-list-section {
+  margin-top: $spacing-md;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ========================================
+Search Navigation
+======================================== */
 .search-navigation {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin: 50px 0;
-  
-  .btn-nav {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    background-color: #ef4056;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    min-width: 160px;
-
-    &--secondary {
-      background-color: #3f4044;
-    }
-  }
+  align-items: center;
+  gap: $spacing-md;
+  margin: $spacing-xl 0;
+  padding: 0;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .result-page .container {
-    padding: 0 15px; // در موبایل فاصله کمتر شود
+.search-navigation .btn-nav {
+  padding: 12px 30px;
+  border: none;
+  border-radius: $radius;
+  background-color: $primary-red;
+  color: $white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 160px;
+  transition: background-color $transition, transform $transition;
+}
+
+.search-navigation .btn-nav:hover {
+  background-color: color.adjust($primary-red, $lightness: -5%);
+  transform: translateY(-2px);
+}
+
+.search-navigation .btn-nav:active {
+  transform: translateY(0);
+}
+
+.search-navigation .btn-nav--secondary {
+  background-color: #3f4044;
+}
+
+.search-navigation .btn-nav--secondary:hover {
+  background-color: color.adjust(#3f4044, $lightness: 10%);
+}
+
+@media (max-width: 575.98px) {
+  .search-navigation {
+    gap: $spacing-sm;
+    width: 100%;
+  }
+
+  .search-navigation .btn-nav {
+    width: 100%;
+    min-width: 100%;
+    padding: 14px;
+    font-size: 13px;
   }
 }

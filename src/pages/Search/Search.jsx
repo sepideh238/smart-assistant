@@ -6,8 +6,10 @@ import "./Search.scss"; // این فایل در قدم بعدی جادو می‌
 
 export default function Search() {
   return (
-    <div className="search-page">
-      {/* بخش بالایی شامل عنوان و باکس جستجو */}
+    // ترکیب کلاس صفحه و کانتینر برای یکپارچگی
+    <div className="search-page container">
+      
+      {/* بخش بالایی */}
       <div className="search-page__header">
         <h1>Smart Assistant</h1>
         <div className="search-page__box-container">
@@ -15,16 +17,12 @@ export default function Search() {
         </div>
       </div>
 
-      {/* 
-          بخش بسیار مهم:
-          این DIV همان ظرفی است که کارت‌ها را به صورت 4 تایی می‌چیند.
-          کلاس search-results-grid را به دقت بنویس.
-      */}
+      {/* بخش لیست دسته‌بندی‌ها */}
       <div className="search-results-grid">
         <CategoryList />
       </div>
 
-      {/* دکمه‌های ناوبری پایین صفحه */}
+      {/* دکمه‌های ناوبری */}
       <div className="search-navigation">
         <Link to="/result">
           <button className="btn-nav">Go To Result</button>
@@ -36,3 +34,4 @@ export default function Search() {
     </div>
   );
 }
+

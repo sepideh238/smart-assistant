@@ -58,54 +58,54 @@ export default function Compare() {
   ];
 
   return (
-    <div className="result-page">
-      <div className="container">
-        <Breadcrumb />
-        <PageHeader />
+    <div className="compare-page container">
+      <Breadcrumb />
+      <PageHeader />
 
-        <section className="compare-section">
-          <h2 className="compare-section__title">Product</h2>
+      <section className="compare-section">
+        <h2 className="compare-section__title">Product</h2>
 
-          <div className="compare-products">
-            {selectedProducts.map((product) => (
-              <div className="compare-product-column" key={product.id}>
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
-
-          <div className="compare-specs">
-            {specs.map((spec) => (
-              <div className="compare-row" key={spec.key}>
-                <div className="compare-spec-title">{spec.label}</div>
-
-                {selectedProducts.map((product) => (
-                  <div className="compare-spec-value" key={product.id}>
-                    {product[spec.key] || "-"}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          <button className="btn-compare-now" type="button">
-            Compare Now
-          </button>
-        </section>
-
-        <div className="search-navigation">
-          <Link to="/">
-            <button className="btn-nav" type="button">
-              Go To Search
-            </button>
-          </Link>
-
-          <Link to="/compare">
-            <button className="btn-nav btn-nav--secondary" type="button">
-              Go To Compare
-            </button>
-          </Link>
+        <div className="compare-products">
+          {selectedProducts.map((product) => (
+            <div className="compare-product-column" key={product.id}>
+              <ProductCard product={product} />
+            </div>
+          ))}
         </div>
+
+        {/* فقط این div را اضافه کن */}
+<div className="table-scroll-wrapper"> 
+  <div className="compare-specs">
+    {specs.map((spec) => (
+      <div className="compare-row" key={spec.key}>
+        <div className="compare-spec-title">{spec.label}</div>
+        {selectedProducts.map((product) => (
+          <div className="compare-spec-value" key={product.id}>
+            {product[spec.key] || "-"}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+{/* پایان div جدید */}
+
+        <button className="btn-compare-now" type="button">
+          Compare Now
+        </button>
+      </section>
+
+      <div className="search-navigation">
+        <Link to="/">
+          <button className="btn-nav" type="button">
+            Go To Search
+          </button>
+        </Link>
+        <Link to="/compare">
+          <button className="btn-nav btn-nav--secondary" type="button">
+            Go To Compare
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,3 +1,7 @@
+/* ---------------------------------------------------------
+   [نینجا]: بخش مقایسه محصولات - اصلاح شده برای رفع کشیدگی و هاور
+   --------------------------------------------------------- */
+
 .compare-section {
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
@@ -19,22 +23,35 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
   margin-bottom: 18px;
+  padding: 10px; // اضافه کردن فضای تنفس برای سایه هاور
+  align-items: start; // [اصلاح کلیدی]: جلوگیری از کشیده شدن کارت‌ها به صورت عمودی
 }
 
 .compare-product-column {
   min-width: 0;
+  display: flex;
+  justify-content: center; // کارت‌ها را در مرکز ستون قرار می‌دهد
 
   .product-card {
-    height: 100%;
+    /* 
+       [اصلاح کلیدی]: حذف استایل‌های اجباری که در فایل قبلی بود.
+       اجازه می‌دهیم کارت استایل‌های اصلی خودش را از ProductCard.scss بگیرد.
+    */
+    width: 100%;
+    max-width: 280px; // جلوگیری از پهن شدن بیش از حد در دسکتاپ
+    height: auto;    // جلوگیری از کشیدگی ارتفاع
+    
+    // اگر می‌خواهی حتماً بوردر داشته باشد ولی هاور هم کار کند:
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-    box-shadow: none;
-    background-color: #ffffff;
-    transition: none;
+    
+    // اطمینان از فعال بودن Transition (اگر در فایل اصلی نیست اینجا اضافه شد)
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
 
     &:hover {
-      transform: none;
-      box-shadow: none;
+      transform: translateY(-8px) !important; // حرکت به سمت بالا
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important; // ایجاد سایه
+      border-color: transparent; // حذف بوردر هنگام هاور برای زیبایی بیشتر
     }
   }
 }
@@ -50,7 +67,7 @@
 .compare-row {
   display: grid;
   grid-template-columns: 150px repeat(3, 1fr);
-  min-height: 42px;
+  min-height: 48px; // کمی افزایش ارتفاع برای خوانایی بهتر
   border-bottom: 1px solid #e5e7eb;
 
   &:last-child {
@@ -64,122 +81,68 @@
 
 .compare-spec-title,
 .compare-spec-value {
-  padding: 10px 12px;
-  font-size: 15px;
-  color: #222222;
+  padding: 12px 15px;
+  font-size: 14px;
+  color: #333333;
   border-right: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
 }
 
 .compare-spec-title {
-  font-weight: 600;
-  justify-content: flex-start;
-  background-color: rgba(255, 255, 255, 0.55);
+  font-weight: 700;
+  background-color: #f9fafb;
 }
 
 .compare-spec-value {
-  justify-content: flex-start;
-  text-align: left;
+  justify-content: center; // مقادیر را وسط‌چین کردیم تا با کارت‌های بالا هماهنگ باشند
+  text-align: center;
 }
 
 .compare-spec-value:last-child {
   border-right: none;
 }
 
+/* --- دکمه و بقیه موارد --- */
 .btn-compare-now {
-  margin-top: 18px;
+  margin-top: 24px;
   background-color: #ef233c;
   color: #ffffff;
   border: none;
-  border-radius: 5px;
-  padding: 11px 22px;
+  border-radius: 6px;
+  padding: 12px 28px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 
   &:hover {
     background-color: #d90429;
-  }
-
-  &:active {
-    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(239, 35, 60, 0.3);
   }
 }
 
-.search-navigation {
-  margin-top: 32px;
-  margin-bottom: 32px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-
-  a {
-    text-decoration: none;
+/* --- موبایل و تبلت --- */
+@media (max-width: 900px) {
+  .compare-products {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    overflow-x: auto;
+  }
+  .compare-row {
+    min-width: 750px;
   }
 }
-
-.btn-nav {
-  min-width: 130px;
-  padding: 10px 18px;
-  border-radius: 6px;
-  border: 1px solid #dcdcdc;
-  background-color: #ffffff;
-  color: #222222;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-
-  &--secondary {
-    background-color: #f3f4f6;
-  }
+/* [اصلاح نینجا]: فقط برای اسکرول شدن جدول در موبایل */
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto; // فعال کردن اسکرول افقی
+  -webkit-overflow-scrolling: touch; // حرکت نرم در گوشی
+  margin-top: 14px;
+  border-radius: 8px; // هماهنگی با گوشه‌های جدول
 }
 
 @media (max-width: 900px) {
-  .compare-section {
-    padding: 20px;
-  }
-
-  .compare-products {
-    grid-template-columns: repeat(3, minmax(220px, 1fr));
-    overflow-x: auto;
-    padding-bottom: 8px;
-  }
-
   .compare-specs {
-    overflow-x: auto;
-  }
-
-  .compare-row {
-    min-width: 780px;
-    grid-template-columns: 140px repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .compare-section {
-    padding: 16px;
-  }
-
-  .compare-section__title {
-    font-size: 20px;
-  }
-
-  .compare-row {
-    min-width: 720px;
-  }
-
-  .search-navigation {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-nav {
-    width: 100%;
+    min-width: 700px; // اجبار جدول به داشتن عرض بیشتر از صفحه برای ایجاد اسکرول
   }
 }
