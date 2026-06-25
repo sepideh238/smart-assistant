@@ -1,3 +1,4 @@
+import React from "react"; // اضافه کردن برای اطمینان بیشتر
 import "./Compare.scss";
 import { Link } from "react-router-dom";
 
@@ -50,12 +51,21 @@ export default function Compare() {
   ];
 
   const specs = [
-    { key: "display", label: "Price" },
+    { key: "price", label: "Price" },
+    { key: "display", label: "Display" },
     { key: "screenSize", label: "Screen Size" },
     { key: "storage", label: "Storage" },
     { key: "ram", label: "RAM" },
     { key: "connectivity", label: "Connectivity" },
   ];
+
+  const formatValue = (key, value) => {
+    if (value === null || value === undefined || value === "") return "-";
+    if (key === "price") {
+      return `${Number(value).toLocaleString("en-US")} Toman`;
+    }
+    return value;
+  };
 
   return (
     <div className="compare-page container">
@@ -63,7 +73,7 @@ export default function Compare() {
       <PageHeader />
 
       <section className="compare-section">
-        <h2 className="compare-section__title">Product</h2>
+        <h2 className="compare-section__title">Product Comparison</h2>
 
         <div className="compare-products">
           {selectedProducts.map((product) => (
@@ -73,22 +83,20 @@ export default function Compare() {
           ))}
         </div>
 
-        {/* فقط این div را اضافه کن */}
-<div className="table-scroll-wrapper"> 
-  <div className="compare-specs">
-    {specs.map((spec) => (
-      <div className="compare-row" key={spec.key}>
-        <div className="compare-spec-title">{spec.label}</div>
-        {selectedProducts.map((product) => (
-          <div className="compare-spec-value" key={product.id}>
-            {product[spec.key] || "-"}
+        <div className="table-scroll-wrapper">
+          <div className="compare-specs">
+            {specs.map((spec) => (
+              <div className="compare-row" key={spec.key}>
+                <div className="compare-spec-title">{spec.label}</div>
+                {selectedProducts.map((product) => (
+                  <div className="compare-spec-value" key={`${spec.key}-${product.id}`}>
+                    {formatValue(spec.key, product[spec.key])}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    ))}
-  </div>
-</div>
-{/* پایان div جدید */}
+        </div>
 
         <button className="btn-compare-now" type="button">
           Compare Now
@@ -97,14 +105,10 @@ export default function Compare() {
 
       <div className="search-navigation">
         <Link to="/">
-          <button className="btn-nav" type="button">
-            Go To Search
-          </button>
+          <button className="btn-nav" type="button">Go To Search</button>
         </Link>
         <Link to="/compare">
-          <button className="btn-nav btn-nav--secondary" type="button">
-            Go To Compare
-          </button>
+          <button className="btn-nav btn-nav--secondary" type="button">Go To Compare</button>
         </Link>
       </div>
     </div>
