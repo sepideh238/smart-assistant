@@ -18,3 +18,57 @@ A modern, responsive web application built with **React** and **Vite**. This pro
 ```bash
    git clone https://github.com/sepideh238/smart-assistant.git
    
+🏗️ Architecture Diagram
+👤 User
+  │
+  ▼
+🔍 Home Page
+  │
+  ▼
+⌨️ Search Input
+  │
+  ▼
+📄 Results Page
+  │
+  ▼
+🃏 Product Cards
+  │
+  ▼
+➕ Add to Compare
+  │
+  ▼
+🧠 Compare State
+  │
+  ▼
+📊 Compare Page
+  │
+  ▼
+✨ Smart Recommendation
+
+📦 Data Source
+└── products.js
+
+⚙️ Main Logic
+└── compareLogic.js
+
+🎨 Styling
+└── SCSS files
+🔁 Flow Overview
+👤 User searches a product
+        ↓
+🔍 App filters mock data
+        ↓
+🃏 User selects products
+        ↓
+🧠 App stores selected items
+        ↓
+📊 Compare page shows table
+        ↓
+✨ Rule-based recommendation is calculated
+📁 Project Structure
+src/
+├── components/
+├── pages/
+├── data/
+├── utils/
+└── styles/
