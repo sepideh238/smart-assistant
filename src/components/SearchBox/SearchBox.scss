@@ -1,238 +1,130 @@
-/* =========================================================
-   SearchBox (Final)
-   - کاملاً متغیرمحور
-   - فرم: Grid (input | button)
-   - پیشنهادات: هم‌عرض input
-========================================================= */
-
 .searchbox {
-  /* -----------------------------
-     جایگذاری و اندازه کلی کامپوننت
-  ----------------------------- */
   position: relative;
   width: min(92vw, 980px);
   margin: 0 auto;
   padding-top: 18px;
 
-  /* -----------------------------
-     متغیرهای اصلی (Desktop)
-     فقط این‌ها را تغییر بده
-  ----------------------------- */
-  --search-height: 64px;          /* ارتفاع فرم */
-  --btn-width: 84px;              /* عرض دکمه قرمز */
-  --form-radius: 999px;           /* گردی فرم (کپسولی) */
-
-  --suggestions-offset-left: 10px; /* مقدار ورود لیست پیشنهادات از سمت چپ */
-
-  --shadow-form: 0 14px 28px rgba(0, 0, 0, 0.10);
-  --shadow-suggestions: 0 16px 32px rgba(0, 0, 0, 0.10);
+  // متغیرهای اختصاصی
+  --search-height: 64px;
+  --btn-width: 84px;
+  --form-radius: 999px;
+  --suggestions-offset-left: 10px;
+  --suggestions-gap: 4px;
+  --shadow-form: 0 14px 28px rgba(0, 0, 0, 0.08);
+  --shadow-suggestions: 0 16px 32px rgba(0, 0, 0, 0.15);
   --border-soft: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .search-main {
   width: 100%;
-  min-width: 0;
+  position: relative; // لنگر برای dropdown
 }
 
-/* =========================================================
-   1) فرم جستجو (Grid)
-   - ستون اول: input
-   - ستون دوم: button
-========================================================= */
 .search-form-ltr {
   direction: ltr;
   position: relative;
   width: 100%;
   height: var(--search-height);
-
   display: grid;
   grid-template-columns: 1fr var(--btn-width);
-  align-items: stretch;
-
   background: #fff;
   border-radius: var(--form-radius);
-  overflow: hidden;
-
+  overflow: hidden; // برای اینکه گوشه‌های اینپوت و دکمه با ردیوس فرم هماهنگ شود
   border: var(--border-soft);
   box-shadow: var(--shadow-form);
-  z-index: 2;
+  z-index: 10;
   box-sizing: border-box;
 }
 
-/* -----------------------------
-   input
------------------------------ */
 .search-input-ltr {
   min-width: 0;
   height: 100%;
   border: none;
   outline: none;
   background: transparent;
-
-  font-size: 15px;
-  padding: 0 22px 0 56px; /* چپ برای آیکن، راست برای تنفس */
+  font-size: 16px;
+  padding: 0 22px 0 56px;
   color: #111827;
 }
 
-.search-input-ltr::placeholder {
-  color: #9ca3af;
-}
-
-/* -----------------------------
-   آیکن داخل input (Overlay)
------------------------------ */
 .search-icon-right-overlay {
   position: absolute;
   left: 18px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: #111827;
-  z-index: 3;
+  color: #6b7280;
 }
 
-.search-icon-right-overlay svg,
-.search-icon-inside svg {
-  width: 30px;
-  height: 30px;
-  fill: currentColor;
+.search-icon-right-overlay svg, .search-icon-inside svg {
+  width: 28px; height: 28px; fill: currentColor;
 }
 
-/* -----------------------------
-   button (submit)
------------------------------ */
 .search-button-left {
-  width: 100%;
-  height: 100%;
-  border: none;
-
   background: #e11d48;
+  border: none;
   cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   color: #fff;
-}
-
-.search-button-left:hover {
-  background: #be123c;
-}
-
-.search-button-left:active {
-  background: #9f1239;
-}
-
-.search-icon-inside {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
+  &:hover { background: #be123c; }
 }
 
-/* =========================================================
-   2) پیشنهادات (هم‌عرض input)
-   - عرض = کل عرض فرم - عرض دکمه - offset چپ
-   - offset چپ باعث می‌شود «کمی از سمت چپ داخل‌تر» بیاید
-========================================================= */
+// استایل حیاتی برای حل مشکل UI
 .search-suggestions {
-  position: relative;
-  z-index: 20;
-
+  position: absolute; // از جریان صفحه خارج می‌شود (Overlay)
+  top: calc(var(--search-height) + var(--suggestions-gap));
+  left: 0;
+  z-index: 1000; // روی همه چیز قرار می‌گیرد
+  
   width: calc(100% - var(--btn-width) - var(--suggestions-offset-left));
   margin-left: var(--suggestions-offset-left);
 
-  margin-top: 2px;
-  transform: translateY(-2px);
-
   background: #fff;
-  border: var(--border-soft);
   border-radius: 16px;
   box-shadow: var(--shadow-suggestions);
+  border: var(--border-soft);
   overflow: hidden;
 }
 
-/* عنوان بالای پیشنهادات */
 .suggestions-header {
-  padding: 14px 18px;
-  background: #fafafa;
-  border-bottom: 1px solid #ececec;
-
-  color: #6b7280;
-  font-size: 14px;
+  padding: 12px 18px;
+  background: #f9fafb;
+  color: #9ca3af;
+  font-size: 13px;
   font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f3f4f6;
 }
 
-/* لیست پیشنهادات */
 .suggestions-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
 }
 
-/* هر آیتم */
 .suggestion-item {
-  padding: 15px 18px;
+  padding: 14px 18px;
   font-size: 15px;
   color: #374151;
-
-  border-bottom: 1px solid #f3f4f6;
   cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  &:last-child { border-bottom: none; }
+  &:hover { background: #fff1f2; color: #e11d48; }
 }
 
-.suggestion-item:last-child {
-  border-bottom: none;
+.no-result {
+  color: #9ca3af;
+  font-style: italic;
+  cursor: default;
+  &:hover { background: transparent; color: #9ca3af; }
 }
 
-.suggestion-item:hover {
-  background: #f9fafb;
-  color: #e11d48;
-}
-
-/* =========================================================
-   3) ریسپانسیو (Mobile)
-   - فقط با override کردن متغیرها
-   - یعنی نیاز به تغییر دستی داخل چندین جای کد نداری
-========================================================= */
 @media (max-width: 768px) {
   .searchbox {
-    width: min(94vw, 100%);
-
-    /* فقط متغیرها را برای موبایل تغییر می‌دهیم */
-    --search-height: 56px;
-    --btn-width: 72px;
-    --suggestions-offset-left: 8px;
-  }
-
-  .search-form-ltr {
-    height: var(--search-height);
-    grid-template-columns: 1fr var(--btn-width);
-  }
-
-  .search-input-ltr {
-    padding: 0 18px 0 46px;
-    font-size: 14px;
-  }
-
-  .search-icon-right-overlay {
-    left: 14px;
-  }
-
-  .search-icon-right-overlay svg,
-  .search-icon-inside svg {
-    width: 26px;
-    height: 26px;
-  }
-
-  /* پیشنهادات هم خودکار با متغیرها درست می‌شود */
-  .search-suggestions {
-    width: calc(100% - var(--btn-width) - var(--suggestions-offset-left));
-    margin-left: var(--suggestions-offset-left);
-  }
-
-  .suggestions-header,
-  .suggestion-item {
-    padding-left: 16px;
-    padding-right: 16px;
+    --search-height: 54px;
+    --btn-width: 68px;
+    --suggestions-offset-left: 6px;
   }
 }
