@@ -14,8 +14,7 @@ import lenovoTabP11 from "../../assets/products/tablets/lenovo-tab-p11.png";
 import surfaceGo3 from "../../assets/products/tablets/surface-go-3.png";
 import realmePad from "../../assets/products/tablets/realme-pad.png";
 import fireHd10 from "../../assets/products/tablets/fire-hd-10.png";
-// اصلاح شده بر اساس اسکرین‌شات (دقت به حروف بزرگ و فاصله):
-import galaxyTabA7 from "../../assets/products/tablets/Galaxy Tab A7.png"; 
+import galaxyTabA7 from "../../assets/products/tablets/galaxy-tab-a7.png";
 import teclastT40Pro from "../../assets/products/tablets/teclast-t40-pro.png";
 import ipadMini from "../../assets/products/tablets/ipad-mini.png";
 import mediapadT10 from "../../assets/products/tablets/mediapad-t10.png";
