@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding-top: 18px;
 
-  // متغیرهای اختصاصی
+  // متغیرهای اختصاصی کامپوننت سرچ‌باکس
   --search-height: 64px;
   --btn-width: 84px;
   --form-radius: 999px;
@@ -17,7 +17,16 @@
 
 .search-main {
   width: 100%;
-  position: relative; // لنگر برای dropdown
+  position: relative; // لنگر اصلی برای موقعیت‌دهی دراپ‌داون پیشنهادات
+}
+
+// غیرفعال کردن و مخفی‌سازی ضربدر پیش‌فرض مرورگرها در اینپوت‌های نوع search
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  display: none;
 }
 
 .search-form-ltr {
@@ -26,10 +35,11 @@
   width: 100%;
   height: var(--search-height);
   display: grid;
+  // گریدبندی اصلی: ۱ ستون منعطف برای اینپوت و ۱ ستون ثابت برای دکمه قرمز سرچ
   grid-template-columns: 1fr var(--btn-width);
   background: #fff;
   border-radius: var(--form-radius);
-  overflow: hidden; // برای اینکه گوشه‌های اینپوت و دکمه با ردیوس فرم هماهنگ شود
+  overflow: hidden; // برش گوشه‌های اینپوت‌ها بر اساس ردیوس فرم اصلی
   border: var(--border-soft);
   box-shadow: var(--shadow-form);
   z-index: 10;
@@ -43,7 +53,8 @@
   outline: none;
   background: transparent;
   font-size: 16px;
-  padding: 0 22px 0 56px;
+  // پدینگ راست بیشتر است تا متن طولانی در زمان تایپ به زیر دکمه ضربدر نرود
+  padding: 0 48px 0 56px; 
   color: #111827;
 }
 
@@ -57,7 +68,39 @@
 }
 
 .search-icon-right-overlay svg, .search-icon-inside svg {
-  width: 28px; height: 28px; fill: currentColor;
+  width: 28px; 
+  height: 28px; 
+  fill: currentColor;
+}
+
+// دکمه ضربدر سفارشی (بدون بهم زدن چیدمان گرید و ریسپانسیو)
+.search-clear-btn {
+  position: absolute;
+  // چسبیدن به سمت چپ دکمه قرمز سرچ با استفاده از متغیر عرض دکمه قرمز + فاصله‌گذاری مناسب
+  right: calc(var(--btn-width) + 4px); 
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #a1a3a8; // رنگ طوسی ملایم مشابه دیجی‌کالا
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15; // قرارگیری بالاتر از اینپوت جهت دریافت کلیک کاربر
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #4a4a4a;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
 }
 
 .search-button-left {
@@ -72,12 +115,12 @@
   &:hover { background: #be123c; }
 }
 
-// استایل حیاتی برای حل مشکل UI
+// لیست پیشنهادات
 .search-suggestions {
-  position: absolute; // از جریان صفحه خارج می‌شود (Overlay)
+  position: absolute; // قرارگیری روی بقیه عناصر صفحه بدون برهم‌زدن چیدمان
   top: calc(var(--search-height) + var(--suggestions-gap));
   left: 0;
-  z-index: 1000; // روی همه چیز قرار می‌گیرد
+  z-index: 1000;
   
   width: calc(100% - var(--btn-width) - var(--suggestions-offset-left));
   margin-left: var(--suggestions-offset-left);
@@ -121,10 +164,11 @@
   &:hover { background: transparent; color: #9ca3af; }
 }
 
+// واکنش‌گرایی در تبلت‌ها و موبایل‌ها
 @media (max-width: 768px) {
   .searchbox {
     --search-height: 54px;
-    --btn-width: 68px;
+    --btn-width: 68px; // کاهش عرض دکمه قرمز و هماهنگی خودکار موقعیت ضربدر سفارشی
     --suggestions-offset-left: 6px;
   }
 }
