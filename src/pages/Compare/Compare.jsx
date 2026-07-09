@@ -78,7 +78,7 @@ export default function Compare() {
         <div className="compare-products">
           {selectedProducts.map((product) => (
             <div className="compare-product-column" key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} showCompareButton={false}  />
             </div>
           ))}
         </div>

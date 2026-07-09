@@ -13,13 +13,13 @@ Product Card
   border: 1px solid $gray-200;
   border-radius: $radius;
   padding: $spacing-md;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   /* حذف min-height: 100% برای جلوگیری از کشیدگی کارت‌ها در گرید */
-  height: 100%; 
+  height: 100%;
   overflow: hidden;
   cursor: pointer;
   transition: transform $transition, box-shadow $transition;
@@ -104,13 +104,42 @@ Product Card
   .price-currency {
     font-size: $font-size-sm;
   }
+
+  /* ========================================
+  Compare Button
+  ======================================== */
+  &__compare-btn {
+    width: 100%;
+    margin-top: $spacing-sm;
+    padding: 0.7rem 1rem;
+    border: 1px solid $gray-300;
+    border-radius: $radius;
+    background-color: $white;
+    color: $black;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color $transition, color $transition,
+      border-color $transition;
+
+    /* افکت hover برای دکمه */
+    &:hover {
+      background-color: $primary-red;
+      color: $white;
+    }
+
+    /* حالت غیرفعال دکمه */
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
 }
 
 /* ========================================
 Responsive Product Card (Mobile Viewport)
 ======================================== */
 
-// استفاده از میکس‌این پروژه برای موبایل
 @include media("max-sm") {
   .product-card {
     padding: $spacing-sm;
@@ -135,6 +164,12 @@ Responsive Product Card (Mobile Viewport)
     }
 
     .price-currency {
+      font-size: $font-size-sm;
+    }
+
+    /* در موبایل دکمه هم کمی فشرده‌تر و هماهنگ‌تر می‌شود */
+    &__compare-btn {
+      padding: 0.65rem 0.75rem;
       font-size: $font-size-sm;
     }
   }
