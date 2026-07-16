@@ -1,28 +1,27 @@
 import React from "react";
 import "./ProductCard.scss";
 
-const ProductCard = ({
+// استفاده از سبک export default function برای تعریف کامپوننت
+export default function ProductCard({
   product,
   imageUrl,
   title,
   price,
-  onCompare, // تابعی که بعداً برای افزودن محصول به لیست مقایسه استفاده می‌کنیم
-  isCompareDisabled = false, // برای غیرفعال‌کردن دکمه در صورت نیاز
-  showCompareButton = true, // ۱. این پراپ جدید با مقدار پیش‌فرض true اضافه شد
-}) => {
-  // اگر product وجود داشته باشد، اطلاعات را از آن می‌گیریم
-  // وگرنه از props تکی imageUrl / title / price استفاده می‌کنیم
-  const image = product?.image || imageUrl;
+  onCompare, 
+  isCompareDisabled = false, 
+  showCompareButton = true, 
+}) {
+  // استخراج داده‌ها: اولویت با شیء product است، اگر نبود از props تکی استفاده می‌شود
+  const image = product?.imageUrl || imageUrl;
   const productTitle = product?.title || title;
   const productPrice = product?.price || price;
 
-  // کلیک روی دکمه Compare
+  // تابعی برای مدیریت کلیک روی دکمه مقایسه
   const handleCompareClick = (event) => {
-    // جلوگیری از انتشار کلیک به والد
-    // مفید است اگر بعداً کل کارت clickable باشد
+    // جلوگیری از پخش شدن رویداد کلیک به لایه‌های بالاتر (والد)
     event.stopPropagation();
 
-    // اگر تابع onCompare ارسال شده باشد، آن را با خود محصول صدا می‌زنیم
+    // اگر والد (ProductList) تابعی برای مقایسه فرستاده باشد، آن را با اطلاعات محصول اجرا کن
     if (onCompare) {
       onCompare(product);
     }
@@ -44,7 +43,7 @@ const ProductCard = ({
           <span className="price-currency"> T </span>
         </div>
 
-        {/* ۲. شرط نمایش دکمه مقایسه: فقط اگر showCompareButton فعال باشد نشان داده می‌شود */}
+        {/* نمایش دکمه مقایسه به صورت شرطی بر اساس پراپ showCompareButton */}
         {showCompareButton && (
           <button
             type="button"
@@ -58,6 +57,4 @@ const ProductCard = ({
       </div>
     </div>
   );
-};
-
-export default ProductCard;
+}

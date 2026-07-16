@@ -1,11 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProductList.scss";
 import ProductCard from "../ProductCard/ProductCard";
 
-/*
-  توضیح نینجا: در اسکرین‌شات شما، نام فایل Galaxy Tab A7 با حروف بزرگ و فاصله بود.
-  من اینجا دقیقاً مطابق اسکرین‌شات شما اصلاح کردم تا ارور نگیرید.
-*/
 import ipadPro11 from "../../assets/products/tablets/ipad-pro-11.png";
 import galaxyTabS7 from "../../assets/products/tablets/galaxy-tab-s7.png";
 import xiaomiPad5 from "../../assets/products/tablets/xiaomi-pad-5.png";
@@ -34,20 +30,65 @@ const products = [
   { id: 12, title: "Huawei MediaPad T10", price: 8800000, imageUrl: mediapadT10 }
 ];
 
-const ProductList = () => {
+export default function ProductList() {
+  // این state لیست محصولاتی را نگه می‌دارد که برای مقایسه انتخاب شده‌اند
+  const [compareItems, setCompareItems] = useState([]);
+
+  // وقتی کامپوننت برای اولین بار باز شد، اگر قبلاً چیزی در localStorage بود بخوان
+  useEffect(() => {
+    const savedCompareItems = localStorage.getItem("compareItems");
+
+    if (savedCompareItems) {
+      setCompareItems(JSON.parse(savedCompareItems));
+    }
+  }, []);
+
+  // هر بار compareItems تغییر کرد، آن را در localStorage ذخیره کن
+  useEffect(() => {
+    localStorage.setItem("compareItems", JSON.stringify(compareItems));
+  }, [compareItems]);
+
+  // این تابع وقتی از ProductCard صدا زده شود، محصول را اضافه/حذف می‌کند
+  const handleCompare = (product) => {
+    setCompareItems((prevItems) => {
+      // بررسی می‌کنیم آیا این محصول قبلاً انتخاب شده یا نه
+      const isAlreadySelected = prevItems.some((item) => item.id === product.id);
+
+      // اگر قبلاً انتخاب شده بود، با کلیک دوباره حذفش می‌کنیم
+      if (isAlreadySelected) {
+        return prevItems.filter((item) => item.id !== product.id);
+      }
+
+      // اگر 3 محصول قبلاً انتخاب شده بود، دیگر بیشتر اضافه نمی‌کنیم
+      if (prevItems.length >= 3) {
+        alert("You can compare up to 3 products only.");
+        return prevItems;
+      }
+
+      // اگر نه تکراری بود و نه لیست پر بود، محصول جدید را اضافه کن
+      return [...prevItems, product];
+    });
+  };
+
   return (
-    // از className هماهنگ با استایل‌ها استفاده می‌کنیم
     <div className="product-list">
-      {products.map((product) => (
-        <ProductCard 
-          key={product.id} 
-          title={product.title}
-          price={product.price}
-          imageUrl={product.imageUrl}
-        />
-      ))}
+      {products.map((product) => {
+        // بررسی می‌کنیم آیا این کارت باید دکمه غیرفعال داشته باشد یا نه
+        const isSelected = compareItems.some((item) => item.id === product.id);
+        const shouldDisable = compareItems.length >= 3 && !isSelected;
+
+        return (
+          <ProductCard
+            key={product.id}
+            product={product}
+            title={product.title}
+            price={product.price}
+            imageUrl={product.imageUrl}
+            onCompare={handleCompare}
+            isCompareDisabled={shouldDisable}
+          />
+        );
+      })}
     </div>
   );
-};
-
-export default ProductList;
+}
