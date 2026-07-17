@@ -1,36 +1,37 @@
 import React from "react";
 import "./ProductCard.scss";
 
-// استفاده از سبک export default function برای تعریف کامپوننت
 export default function ProductCard({
   product,
   imageUrl,
   title,
   price,
-  onCompare, 
-  isCompareDisabled = false, 
-  showCompareButton = true, 
+  onCompare,
+  isCompareDisabled = false,
+  showCompareButton = true,
+  isSelected = false,
 }) {
-  // استخراج داده‌ها: اولویت با شیء product است، اگر نبود از props تکی استفاده می‌شود
-  const image = product?.imageUrl || imageUrl;
-  const productTitle = product?.title || title;
-  const productPrice = product?.price || price;
+  // اطلاعات اصلی را ترجیحاً از خود product می‌گیریم
+  // اگر بعضی فیلدها نبودند، از propهای جداگانه استفاده می‌کنیم
+  const image = product?.imageUrl || product?.image || imageUrl || "";
+  const productTitle = product?.title || title || "Product";
+  const productPrice = product?.price ?? price;
 
-  // تابعی برای مدیریت کلیک روی دکمه مقایسه
   const handleCompareClick = (event) => {
-    // جلوگیری از پخش شدن رویداد کلیک به لایه‌های بالاتر (والد)
+    // جلوگیری از اثر کلیک روی والدهای احتمالی کارت
     event.stopPropagation();
 
-    // اگر والد (ProductList) تابعی برای مقایسه فرستاده باشد، آن را با اطلاعات محصول اجرا کن
-    if (onCompare) {
+    // فقط اگر product و onCompare موجود باشند، عملیات انتخاب/حذف انجام می‌شود
+    if (product && onCompare) {
       onCompare(product);
     }
   };
 
   return (
-    <div className="product-card">
+    // اگر این محصول انتخاب شده باشد، کلاس is-selected به کارت اضافه می‌شود
+    <div className={`product-card ${isSelected ? "is-selected" : ""}`}>
       <div className="product-card__image">
-        <img src={image} alt={productTitle || "product"} />
+        <img src={image} alt={productTitle} />
       </div>
 
       <div className="product-card__info">
@@ -38,20 +39,26 @@ export default function ProductCard({
 
         <div className="product-card__price">
           <span className="price-value">
-            {productPrice?.toLocaleString("en-US")}
+            {/* اگر قیمت عدد باشد، به صورت فرمت‌شده نمایش داده می‌شود */}
+            {typeof productPrice === "number"
+              ? productPrice.toLocaleString("en-US")
+              : productPrice}
           </span>
           <span className="price-currency"> T </span>
         </div>
 
-        {/* نمایش دکمه مقایسه به صورت شرطی بر اساس پراپ showCompareButton */}
+        {/* در بعضی صفحه‌ها ممکن است نخواهیم دکمه Compare نمایش داده شود */}
         {showCompareButton && (
           <button
             type="button"
-            className="product-card__compare-btn"
+            className={`product-card__compare-btn ${
+              isSelected ? "is-selected" : ""
+            }`}
             onClick={handleCompareClick}
             disabled={isCompareDisabled}
           >
-            Compare
+            {/* متن دکمه بر اساس وضعیت انتخاب تغییر می‌کند */}
+            {isSelected ? "Selected" : "Compare"}
           </button>
         )}
       </div>
