@@ -1,120 +1,129 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Compare.scss";
-
+import CompareTable from "../../components/CompareTable/CompareTable";
 import Breadcrumb from "../../components/Breadcrumb/Breadcrumb";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
+/**
+ * نقشه‌ی کمکی برای پیدا کردن ظرفیت حافظه بر اساس ID محصول
+ * این بخش برای زمانی است که داده‌های قدیمی در LocalStorage هنوز فیلد storage ندارند.
+ */
+const storageMap = {
+  1: "128GB",
+  2: "128GB",
+  3: "256GB",
+  4: "128GB",
+  5: "64GB",
+  6: "128GB",
+  7: "64GB",
+  8: "32GB",
+  9: "32GB",
+  10: "128GB",
+  11: "64GB",
+  12: "32GB",
+};
+
+/**
+ * تابع کمکی برای خواندن محصولات از LocalStorage
+ * این تابع هوشمند است: اگر محصولی استوریج نداشت، آن را از نقشه بالا برمی‌دارد.
+ */
+const getStoredProducts = () => {
+  const savedItems = localStorage.getItem("compareItems");
+
+  if (!savedItems) return [];
+
+  try {
+    const parsedItems = JSON.parse(savedItems);
+
+    if (!Array.isArray(parsedItems)) return [];
+
+    // ایجاد یک لیست جدید که حتماً فیلد storage داشته باشد
+    return parsedItems.map((item) => ({
+      ...item,
+      // اگر استوریج داشت همان را بردار، وگرنه از storageMap پیدا کن
+      storage: item.storage || storageMap[item.id] || "-",
+    }));
+  } catch (error) {
+    console.error("Error parsing compare items:", error);
+    return [];
+  }
+};
+
+/**
+ * تعریف ستون‌های جدول مقایسه
+ */
+const specs = [
+  { key: "title", label: "Product Name" },
+  { key: "price", label: "Price" },
+  { key: "storage", label: "Storage" },
+];
+
 export default function Compare() {
-  // این state تعیین می‌کند که جدول مقایسه نمایش داده بشود یا نه
-  // در ابتدا false است، یعنی فقط کارت‌ها نمایش داده می‌شوند
+  // وضعیت نمایش یا عدم نمایش جدول مقایسه
   const [showComparison, setShowComparison] = useState(false);
+  
+  // نگهداری لیست محصولات انتخاب شده در State
+  const [selectedProducts, setSelectedProducts] = useState(getStoredProducts);
 
-  // این بخش محصولات انتخاب‌شده را از localStorage می‌خواند
-  // useMemo باعث می‌شود این محاسبه بی‌دلیل در هر رندر تکرار نشود
-  const selectedProducts = useMemo(() => {
-    // گرفتن داده ذخیره‌شده با همان کلیدی که در ProductList.jsx استفاده شده
-    const savedItems = localStorage.getItem("compareItems");
+  useEffect(() => {
+    // تابعی که هنگام تغییر در لیست مقایسه (از صفحات دیگر) اجرا می‌شود
+    const handleCompareUpdated = () => {
+      setSelectedProducts(getStoredProducts());
+    };
 
-    // اگر چیزی در localStorage نبود، آرایه خالی برگردان
-    if (!savedItems) {
-      return [];
-    }
+    // گوش دادن به رویداد سفارشی برای آپدیت آنی صفحه
+    window.addEventListener("compareUpdated", handleCompareUpdated);
 
-    try {
-      // تبدیل رشته JSON به آرایه جاوااسکریپتی
-      const parsedItems = JSON.parse(savedItems);
-
-      // فقط اگر واقعاً آرایه بود برگردان
-      return Array.isArray(parsedItems) ? parsedItems : [];
-    } catch (error) {
-      // اگر JSON خراب بود، صفحه نباید کرش کند
-      return [];
-    }
+    // پاکسازی Event Listener هنگام خروج از کامپوننت
+    return () => {
+      window.removeEventListener("compareUpdated", handleCompareUpdated);
+    };
   }, []);
 
-  // لیست مشخصاتی که داخل جدول مقایسه نمایش داده می‌شوند
-  // اگر بعضی از این فیلدها داخل محصول نباشند، در جدول "-" نشان داده می‌شود
-  const specs = [
-    { key: "price", label: "Price" },
-    { key: "brand", label: "Brand" },
-    { key: "display", label: "Display" },
-    { key: "screenSize", label: "Screen Size" },
-    { key: "storage", label: "Storage" },
-    { key: "ram", label: "RAM" },
-    { key: "connectivity", label: "Connectivity" },
-  ];
-
-  // این تابع مقدار هر فیلد را برای نمایش آماده می‌کند
-  const formatValue = (key, value) => {
-    // اگر مقدار خالی بود، به جای آن "-" نشان بده
-    if (value === null || value === undefined || value === "") {
-      return "-";
-    }
-
-    // اگر فیلد قیمت بود، آن را فرمت‌شده نمایش بده
-    if (key === "price") {
-      return `${Number(value).toLocaleString("en-US")} Toman`;
-    }
-
-    // در غیر این صورت همان مقدار را برگردان
-    return value;
-  };
-
-  // با کلیک روی این دکمه، جدول مقایسه نمایش داده می‌شود
+  // هندلر کلیک روی دکمه Compare Now
   const handleCompareNow = () => {
     setShowComparison(true);
   };
 
   return (
     <div className="compare-page container">
-      {/* مسیر صفحه */}
+      {/* بخش هدر و مسیر راهنما */}
       <Breadcrumb />
-
-      {/* هدر بالای صفحه */}
       <PageHeader />
 
       <section className="compare-section">
         <h2 className="compare-section__title">Product Comparison</h2>
 
-        {/* اگر هیچ محصولی انتخاب نشده باشد */}
+        {/* اگر محصولی انتخاب نشده باشد، پیام خالی بودن نمایش داده می‌شود */}
         {selectedProducts.length === 0 ? (
           <div className="compare-empty-state">
             <p>No product has been selected for comparison.</p>
-
-            {/* دکمه برگشت به صفحه سرچ */}
             <div className="search-navigation">
-              <Link to="/">
-                <button className="btn-nav" type="button">
-                  Go To Search
-                </button>
+              <Link className="btn-nav" to="/">
+                Go To Search
               </Link>
             </div>
           </div>
         ) : (
           <>
-            {/* نمایش کارت‌های محصولات انتخاب‌شده */}
+            {/* نمایش کارت محصولات در بالای جدول */}
             <div className="compare-products">
               {selectedProducts.map((product) => (
                 <div className="compare-product-column" key={product.id}>
                   <ProductCard
-                    // خود آبجکت محصول
                     product={product}
-                    // عنوان محصول
                     title={product.title}
-                    // قیمت محصول
                     price={product.price}
-                    // تصویر محصول
                     imageUrl={product.imageUrl}
-                    // دکمه compare داخل کارت در این صفحه نباید نمایش داده شود
-                    showCompareButton={false}
+                    showCompareButton={false} // دکمه مقایسه در اینجا مخفی می‌شود
                   />
                 </div>
               ))}
             </div>
 
-            {/* تا قبل از نمایش جدول، فقط دکمه Compare Now دیده می‌شود */}
+            {/* دکمه برای نمایش جدول نهایی مقایسه */}
             {!showComparison && (
               <button
                 className="btn-compare-now"
@@ -125,37 +134,15 @@ export default function Compare() {
               </button>
             )}
 
-            {/* بعد از کلیک روی Compare Now جدول مقایسه باز می‌شود */}
+            {/* رندر کردن جدول مقایسه در صورت تایید کاربر */}
             {showComparison && (
-              <div className="table-scroll-wrapper">
-                <div className="compare-specs">
-                  {/* هر سطر جدول مربوط به یک مشخصه است */}
-                  {specs.map((spec) => (
-                    <div className="compare-row" key={spec.key}>
-                      {/* عنوان مشخصه */}
-                      <div className="compare-spec-title">{spec.label}</div>
-
-                      {/* مقدار همان مشخصه برای هر محصول */}
-                      {selectedProducts.map((product) => (
-                        <div
-                          className="compare-spec-value"
-                          key={`${spec.key}-${product.id}`}
-                        >
-                          {formatValue(spec.key, product[spec.key])}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <CompareTable products={selectedProducts} specs={specs} />
             )}
 
-            {/* دکمه برگشت به سرچ بعد از نمایش محصولات */}
+            {/* دکمه بازگشت به صفحه جستجو */}
             <div className="search-navigation">
-              <Link to="/">
-                <button className="btn-nav" type="button">
-                  Go To Search
-                </button>
+              <Link className="btn-nav" to="/">
+                Go To Search
               </Link>
             </div>
           </>

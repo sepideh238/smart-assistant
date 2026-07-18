@@ -22,18 +22,90 @@ import mediapadT10 from "../../assets/products/tablets/mediapad-t10.png";
 const MAX_COMPARE_ITEMS = 3;
 
 const products = [
-  { id: 1, title: 'Apple iPad Pro 11"', price: 25000000, imageUrl: ipadPro11 },
-  { id: 2, title: "Samsung Galaxy Tab S7", price: 18500000, imageUrl: galaxyTabS7 },
-  { id: 3, title: "Xiaomi Pad 5", price: 18900000, imageUrl: xiaomiPad5 },
-  { id: 4, title: "Huawei MatePad 11", price: 18000000, imageUrl: huaweiMatepad11 },
-  { id: 5, title: "Lenovo Tab P11", price: 6500000, imageUrl: lenovoTabP11 },
-  { id: 6, title: "Microsoft Surface Go 3", price: 15900000, imageUrl: surfaceGo3 },
-  { id: 7, title: "Realme Pad", price: 8000000, imageUrl: realmePad },
-  { id: 8, title: "Amazon Fire HD 10", price: 7000000, imageUrl: fireHd10 },
-  { id: 9, title: "Samsung Galaxy Tab A7", price: 6600000, imageUrl: galaxyTabA7 },
-  { id: 10, title: "Teclast T40 Pro", price: 8300000, imageUrl: teclastT40Pro },
-  { id: 11, title: "Apple iPad Mini", price: 7800000, imageUrl: ipadMini },
-  { id: 12, title: "Huawei MediaPad T10", price: 8800000, imageUrl: mediapadT10 },
+  {
+    id: 1,
+    title: 'Apple iPad Pro 11"',
+    price: 25000000,
+    imageUrl: ipadPro11,
+    storage: "128GB",
+  },
+  {
+    id: 2,
+    title: "Samsung Galaxy Tab S7",
+    price: 18500000,
+    imageUrl: galaxyTabS7,
+    storage: "128GB",
+  },
+  {
+    id: 3,
+    title: "Xiaomi Pad 5",
+    price: 18900000,
+    imageUrl: xiaomiPad5,
+    storage: "256GB",
+  },
+  {
+    id: 4,
+    title: "Huawei MatePad 11",
+    price: 18000000,
+    imageUrl: huaweiMatepad11,
+    storage: "128GB",
+  },
+  {
+    id: 5,
+    title: "Lenovo Tab P11",
+    price: 6500000,
+    imageUrl: lenovoTabP11,
+    storage: "64GB",
+  },
+  {
+    id: 6,
+    title: "Microsoft Surface Go 3",
+    price: 15900000,
+    imageUrl: surfaceGo3,
+    storage: "128GB",
+  },
+  {
+    id: 7,
+    title: "Realme Pad",
+    price: 8000000,
+    imageUrl: realmePad,
+    storage: "64GB",
+  },
+  {
+    id: 8,
+    title: "Amazon Fire HD 10",
+    price: 7000000,
+    imageUrl: fireHd10,
+    storage: "32GB",
+  },
+  {
+    id: 9,
+    title: "Samsung Galaxy Tab A7",
+    price: 6600000,
+    imageUrl: galaxyTabA7,
+    storage: "32GB",
+  },
+  {
+    id: 10,
+    title: "Teclast T40 Pro",
+    price: 8300000,
+    imageUrl: teclastT40Pro,
+    storage: "128GB",
+  },
+  {
+    id: 11,
+    title: "Apple iPad Mini",
+    price: 7800000,
+    imageUrl: ipadMini,
+    storage: "64GB",
+  },
+  {
+    id: 12,
+    title: "Huawei MediaPad T10",
+    price: 8800000,
+    imageUrl: mediapadT10,
+    storage: "32GB",
+  },
 ];
 
 export default function ProductList() {
@@ -53,7 +125,6 @@ export default function ProductList() {
       try {
         const parsedItems = JSON.parse(savedCompareItems);
 
-        // فقط اگر داده به شکل آرایه باشد داخل state قرار می‌گیرد
         if (Array.isArray(parsedItems)) {
           setCompareItems(parsedItems);
         } else {
@@ -68,6 +139,7 @@ export default function ProductList() {
   // هر بار که compareItems تغییر کند، داخل localStorage ذخیره می‌شود
   useEffect(() => {
     localStorage.setItem("compareItems", JSON.stringify(compareItems));
+    window.dispatchEvent(new Event("compareUpdated"));
   }, [compareItems]);
 
   const handleCompare = (product) => {
@@ -79,20 +151,15 @@ export default function ProductList() {
         return prevItems.filter((item) => item.id !== product.id);
       }
 
-      // اگر تعداد انتخاب‌ها به سقف مجاز رسیده باشد،
-      // به‌جای اضافه کردن محصول چهارم، مودال هشدار باز می‌شود
+      // اگر تعداد انتخاب‌ها به سقف مجاز رسیده باشد مودال هشدار باز می‌شود
       if (prevItems.length >= MAX_COMPARE_ITEMS) {
         setIsLimitModalOpen(true);
         return prevItems;
       }
 
-      // در غیر این صورت محصول جدید به لیست اضافه می‌شود
+      // محصول جدید با همه فیلدها برای مقایسه ذخیره می‌شود
       return [...prevItems, product];
     });
-  };
-
-  const handleGoToCompare = () => {
-    navigate("/compare");
   };
 
   const handleCloseLimitModal = () => {
@@ -108,7 +175,6 @@ export default function ProductList() {
     <div className="product-list-wrapper">
       <div className="product-list">
         {products.map((product) => {
-          // مشخص می‌کنیم این محصول الان انتخاب شده یا نه
           const isSelected = compareItems.some((item) => item.id === product.id);
 
           return (
@@ -125,7 +191,6 @@ export default function ProductList() {
         })}
       </div>
 
-      {/* مودال محدودیت وقتی کاربر بخواهد محصول چهارم را انتخاب کند */}
       <LimitModal
         isOpen={isLimitModalOpen}
         onClose={handleCloseLimitModal}

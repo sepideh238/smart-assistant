@@ -1,0 +1,97 @@
+/* 
+  wrapper جدول مقایسه
+  اگر جدول در عرض جا نشود، اسکرول افقی می‌گیرد
+*/
+.table-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* 
+  بدنه اصلی جدول مقایسه
+  min-width باعث می‌شود ساختار جدول به هم نریزد
+*/
+.compare-specs {
+  min-width: 750px;
+  background-color: #ffffff;
+}
+
+/* 
+  هر ردیف جدول
+  ستون اول عنوان مشخصه است
+  تعداد ستون‌های بعدی بر اساس تعداد محصولات تعیین می‌شود
+*/
+.compare-row {
+  display: grid;
+  grid-template-columns: 160px repeat(var(--compare-columns, 3), minmax(0, 1fr));
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* 
+  آخرین ردیف جدول border پایین نداشته باشد
+*/
+.compare-row:last-child {
+  border-bottom: none;
+}
+
+/* 
+  یکی در میان پس‌زمینه ردیف‌ها کمی متفاوت باشد
+*/
+.compare-row:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* 
+  استایل مشترک عنوان مشخصه و مقدار هر محصول
+*/
+.compare-spec-title,
+.compare-spec-value {
+  padding: 14px 15px;
+  font-size: 14px;
+  color: #333333;
+  display: flex;
+  align-items: center;
+}
+
+/* 
+  ستون عنوان مشخصه
+*/
+.compare-spec-title {
+  font-weight: 700;
+  background-color: #f9fafb;
+  border-right: 2px solid #e5e7eb;
+}
+
+/* 
+  مقدار هر مشخصه برای هر محصول
+*/
+.compare-spec-value {
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+/* 
+  آخرین ستون مقدار، border سمت راست نداشته باشد
+*/
+.compare-spec-value:last-child {
+  border-right: none;
+}
+
+/* 
+  تنظیمات موبایل برای جدول
+*/
+@media (max-width: 768px) {
+  .compare-specs {
+    min-width: 650px;
+  }
+
+  .compare-row {
+    grid-template-columns: 130px repeat(var(--compare-columns, 3), minmax(0, 1fr));
+  }
+}
