@@ -7,6 +7,7 @@ Product List Grid
 
 .product-list {
   display: grid;
+  // نمایش ۴ ستونه در مانیتورهای بزرگ و دسکتاپ
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: $spacing-lg;
   width: 100%;
@@ -14,11 +15,12 @@ Product List Grid
   padding: $spacing-lg 0;
   box-sizing: border-box;
   align-items: start;
+  // افکت انیمیشن لود شدن نرم لیست
   animation: fadeIn 0.5s ease-in-out;
 }
 
 /* ========================================
-Laptop
+Laptop (لپ‌تاپ‌ها و مانیتورهای متوسط)
 ======================================== */
 
 @include media("max-xl") {
@@ -28,7 +30,7 @@ Laptop
 }
 
 /* ========================================
-Tablet
+Tablet (تبلت‌ها)
 ======================================== */
 
 @include media("max-md") {
@@ -40,11 +42,12 @@ Tablet
 }
 
 /* ========================================
-Mobile
+Mobile (گوشی‌های همراه)
 ======================================== */
 
 @include media("max-sm") {
   .product-list {
+    // تبدیل به حالت تک ستونه برای خوانایی بهتر در صفحات کوچک
     grid-template-columns: 1fr;
     gap: $spacing-sm;
     padding: $spacing-sm 0;
@@ -60,7 +63,6 @@ Animation
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
