@@ -1,10 +1,11 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 
 export default function Layout() {
-
   // گرفتن آدرس صفحه فعلی کاربر
   const location = useLocation();
 
@@ -16,7 +17,6 @@ export default function Layout() {
 
   return (
     <div className="layout">
-
       {/* هدر سایت */}
       <Header showSearch={showSearch} />
 
@@ -28,6 +28,17 @@ export default function Layout() {
       {/* فوتر سایت */}
       <Footer />
 
+      {/* کانتینر سراسری toast با انیمیشن اسلاید و استایل اختصاصی */}
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        transition={Slide}
+        toastClassName="custom-toast-container"
+      />
     </div>
   );
 }

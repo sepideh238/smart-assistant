@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ۱. اضافه شدن ابزار جابجایی بین صفحات
+import { toast } from "react-toastify";
 import "./ProductList.scss";
 import ProductCard from "../ProductCard/ProductCard";
+import CompareModal from "../CompareModal/CompareModal";
 
-/**
- * ایمپورت تصاویر محصولات به صورت Static
- * این تصاویر در پوشه assets نگهداری می‌شوند
- */
+// ... (بخش وارد کردن تصاویر بدون تغییر باقی می‌ماند)
 import ipadPro11 from "../../assets/products/tablets/ipad-pro-11.png";
 import galaxyTabS7 from "../../assets/products/tablets/galaxy-tab-s7.png";
 import xiaomiPad5 from "../../assets/products/tablets/xiaomi-pad-5.png";
@@ -19,10 +19,6 @@ import teclastT40Pro from "../../assets/products/tablets/teclast-t40-pro.png";
 import ipadMini from "../../assets/products/tablets/ipad-mini.png";
 import mediapadT10 from "../../assets/products/tablets/mediapad-t10.png";
 
-/**
- * دیتای محصولات: در پروژه‌های واقعی این دیتا معمولاً از API دریافت می‌شود.
- * اما اینجا به صورت هاردکد شده برای نمایش در لیست استفاده می‌کنیم.
- */
 const products = [
   { id: 1, title: 'Apple iPad Pro 11"', price: 25000000, imageUrl: ipadPro11, storage: "128GB" },
   { id: 2, title: "Samsung Galaxy Tab S7", price: 18500000, imageUrl: galaxyTabS7, storage: "128GB" },
@@ -39,24 +35,89 @@ const products = [
 ];
 
 export default function ProductList() {
-  /**
-   * رندر کردن کامپوننت لیست محصولات
-   * در این نسخه منطق انتخاب (Select) و مقایسه (Compare) حذف شده است
-   */
+  // ۲. تعریف تابع جابجایی (Navigate)
+  const navigate = useNavigate();
+
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  const handleToggleCompare = (product) => {
+    const isAlreadySelected = selectedProducts.some((item) => item.id === product.id);
+
+    if (isAlreadySelected) {
+      setSelectedProducts((prev) => prev.filter((item) => item.id !== product.id));
+      toast.info(
+        <div className="custom-toast">
+          <div className="custom-toast__icon">🗑️</div>
+          <div className="custom-toast__content">
+            <span className="custom-toast__title">{product.title}</span>
+            <span className="custom-toast__subtitle">Removed from compare list</span>
+          </div>
+        </div>,
+        { icon: false, autoClose: 3000 }
+      );
+      return;
+    }
+
+    if (selectedProducts.length >= 3) {
+      setIsCompareModalOpen(true);
+      return;
+    }
+
+    setSelectedProducts((prev) => [...prev, product]);
+    toast.success(
+      <div className="custom-toast">
+        <div className="custom-toast__icon">✅</div>
+        <div className="custom-toast__content">
+          <span className="custom-toast__title">{product.title}</span>
+          <span className="custom-toast__subtitle">Added to compare list</span>
+        </div>
+      </div>,
+      { icon: false, autoClose: 3000 }
+    );
+  };
+
+  const handleCloseModal = () => {
+    setIsCompareModalOpen(false);
+  };
+
+  // ۳. تابع اصلاح شده برای انتقال بدون مکث و پرش
+  const handleGoToCompare = () => {
+    // بستن مودال (اختیاری، چون صفحه عوض می‌شود)
+    setIsCompareModalOpen(false);
+    
+    // ذخیره محصولات انتخاب شده در LocalStorage برای استفاده در صفحه مقصد
+    localStorage.setItem("compareItems", JSON.stringify(selectedProducts));
+    
+    // اطلاع‌رسانی به کل برنامه برای به‌روزرسانی (Event Listener)
+    window.dispatchEvent(new Event("compareUpdated"));
+    
+    // استفاده از هوک useNavigate برای جابجایی آنی و نرم (بسیار سریع‌تر از location.assign)
+    navigate("/compare");
+  };
+
   return (
     <div className="product-list-wrapper">
       <div className="product-list">
-        {/* پیمایش روی آرایه محصولات و نمایش هر محصول با استفاده از کامپوننت ProductCard */}
         {products.map((product) => (
           <ProductCard
-            key={product.id} // کلید یکتا برای بهینه‌سازی رندر توسط ری‌اکت
+            key={product.id}
             product={product}
             title={product.title}
             price={product.price}
             imageUrl={product.imageUrl}
+            isSelected={selectedProducts.some((item) => item.id === product.id)}
+            onToggleCompare={handleToggleCompare}
           />
         ))}
       </div>
+
+      <CompareModal
+        isOpen={isCompareModalOpen}
+        onClose={handleCloseModal}
+        productTitle="You can compare up to 3 products only"
+        onGoToCompare={handleGoToCompare}
+      />
     </div>
   );
 }
