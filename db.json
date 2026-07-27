@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "imageUrl": "/images/mobile.png",
+      "title": "Mobile Phones"
+    },
+    {
+      "id": 2,
+      "imageUrl": "/images/laptop.png",
+      "title": "Laptops"
+    },
+    {
+      "id": 3,
+      "imageUrl": "/images/home_appliance.png",
+      "title": "Home Appliances"
+    },
+    {
+      "id": 4,
+      "imageUrl": "/images/fashion.png",
+      "title": "Fashion"
+    },
+    {
+      "id": 5,
+      "imageUrl": "/images/beauty.png",
+      "title": "Beauty & Health"
+    },
+    {
+      "id": 6,
+      "imageUrl": "/images/sports.png",
+      "title": "Sports & Outdoors"
+    },
+    {
+      "id": 7,
+      "imageUrl": "/images/gaming.png",
+      "title": "Gaming"
+    },
+    {
+      "id": 8,
+      "imageUrl": "/images/toys.png",
+      "title": "Toys & Kids"
+    }
+  ]
+}

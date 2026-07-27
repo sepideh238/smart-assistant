@@ -4,8 +4,10 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 100vh;
   padding: 20px;
   background-color: #ffffff;
+  box-sizing: border-box;
 
   &__header {
     width: 100%;
@@ -25,50 +27,56 @@
   }
 }
 
-/* 
-   بخش اصلی: چیدمان کارت‌ها 
-   ========================================= */
+/* بخش اصلی: چیدمان کارت‌ها */
 .search-results-grid {
   display: grid;
   width: 100%;
-  max-width: 1200px; // جلوگیری از کش آمدن بیش از حد در مانیتور بزرگ
+  max-width: 1200px;
   margin: 0 auto;
-  
-  /* گام 1: دسکتاپ - 4 ستون مساوی */
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 24px; // فاصله بین کارت‌ها
+  box-sizing: border-box;
 
-  /* گام 2: تبلت - اگر عرض صفحه کمتر از 1024px شد -> 2 ستون */
+  /* دسکتاپ */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+
+  /* تبلت */
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 0 20px;
   }
 
-  /* گام 3: موبایل - اگر عرض صفحه کمتر از 600px شد -> 1 ستون */
+  /* موبایل */
   @media (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
     gap: 16px;
     padding: 0 15px;
   }
 }
 
-/* استایل دکمه‌های پایین صفحه */
+/* دکمه‌های پایین صفحه */
 .search-navigation {
   display: flex;
   gap: 15px;
   margin-top: 40px;
   padding-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+  }
 
   .btn-nav {
     padding: 12px 25px;
     border: none;
     border-radius: 8px;
     background-color: #007bff;
-    color: white;
+    color: #ffffff;
     font-weight: bold;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    min-width: 160px;
 
     &:hover {
       background-color: #0056b3;
@@ -77,6 +85,7 @@
 
     &--secondary {
       background-color: #6c757d;
+
       &:hover {
         background-color: #5a6268;
       }
@@ -84,13 +93,21 @@
   }
 }
 
-/* برای موبایل دکمه‌ها زیر هم بیایند */
+/* موبایل: دکمه‌ها زیر هم */
 @media (max-width: 480px) {
+  .search-page {
+    padding: 16px;
+  }
+
   .search-navigation {
     flex-direction: column;
     width: 100%;
-    
-    a, .btn-nav {
+
+    a {
+      width: 100%;
+    }
+
+    .btn-nav {
       width: 100%;
     }
   }
