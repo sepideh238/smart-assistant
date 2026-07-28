@@ -42,16 +42,147 @@
     }
   ],
   "suggestions": [
-    { "id": 1, "name": "Wireless Headphones" },
-    { "id": 2, "name": "Smartphones" },
-    { "id": 3, "name": "Laptop" },
-    { "id": 4, "name": "Running Shoes" },
-    { "id": 5, "name": "Smart Watch" },
-    { "id": 6, "name": "Apple iPhone 14" },
-    { "id": 7, "name": "Samsung Galaxy S23" },
-    { "id": 8, "name": "MacBook Pro" },
-    { "id": 9, "name": "Tablet" },
-    { "id": 10, "name": "Samsung Tablet" },
-    { "id": 11, "name": "Apple iPad" }
+    {
+      "id": 1,
+      "name": "Wireless Headphones"
+    },
+    {
+      "id": 2,
+      "name": "Smartphones"
+    },
+    {
+      "id": 3,
+      "name": "Laptop"
+    },
+    {
+      "id": 4,
+      "name": "Running Shoes"
+    },
+    {
+      "id": 5,
+      "name": "Smart Watch"
+    },
+    {
+      "id": 6,
+      "name": "Apple iPhone 14"
+    },
+    {
+      "id": 7,
+      "name": "Samsung Galaxy S23"
+    },
+    {
+      "id": 8,
+      "name": "MacBook Pro"
+    },
+    {
+      "id": 9,
+      "name": "Tablet"
+    },
+    {
+      "id": 10,
+      "name": "Samsung Tablet"
+    },
+    {
+      "id": 11,
+      "name": "Apple iPad"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "title": "Fire HD 10",
+      "category": "Tablet",
+      "price": 149,
+      "imageUrl": "/images/products/fire-hd-10.png",
+      "brand": "Amazon"
+    },
+    {
+      "id": 2,
+      "title": "Galaxy Tab A7",
+      "category": "Tablet",
+      "price": 219,
+      "imageUrl": "/images/products/galaxy-tab-a7.png",
+      "brand": "Samsung"
+    },
+    {
+      "id": 3,
+      "title": "Galaxy Tab S7",
+      "category": "Tablet",
+      "price": 649,
+      "imageUrl": "/images/products/galaxy-tab-s7.png",
+      "brand": "Samsung"
+    },
+    {
+      "id": 4,
+      "title": "Huawei MatePad 11",
+      "category": "Tablet",
+      "price": 399,
+      "imageUrl": "/images/products/huawei-matepad-11.png",
+      "brand": "Huawei"
+    },
+    {
+      "id": 5,
+      "title": "iPad Mini",
+      "category": "Tablet",
+      "price": 499,
+      "imageUrl": "/images/products/ipad-mini.png",
+      "brand": "Apple"
+    },
+    {
+      "id": 6,
+      "title": "iPad Pro 11",
+      "category": "Tablet",
+      "price": 799,
+      "imageUrl": "/images/products/ipad-pro-11.png",
+      "brand": "Apple"
+    },
+    {
+      "id": 7,
+      "title": "Lenovo Tab P11",
+      "category": "Tablet",
+      "price": 299,
+      "imageUrl": "/images/products/lenovo-tab-p11.png",
+      "brand": "Lenovo"
+    },
+    {
+      "id": 8,
+      "title": "MediaPad T10",
+      "category": "Tablet",
+      "price": 179,
+      "imageUrl": "/images/products/mediapad-t10.png",
+      "brand": "Huawei"
+    },
+    {
+      "id": 9,
+      "title": "Realme Pad",
+      "category": "Tablet",
+      "price": 229,
+      "imageUrl": "/images/products/realme-pad.png",
+      "brand": "Realme"
+    },
+    {
+      "id": 10,
+      "title": "Surface Go 3",
+      "category": "Tablet",
+      "price": 549,
+      "imageUrl": "/images/products/surface-go-3.png",
+      "brand": "Microsoft"
+    },
+    {
+      "id": 11,
+      "title": "Teclast T40 Pro",
+      "category": "Tablet",
+      "price": 259,
+      "imageUrl": "/images/products/teclast-t40-pro.png",
+      "brand": "Teclast"
+    },
+    {
+      "id": 12,
+      "title": "Xiaomi Pad 5",
+      "category": "Tablet",
+      "price": 399,
+      "imageUrl": "/images/products/xiaomi-pad-5.png",
+      "brand": "Xiaomi"
+    }
   ]
 }

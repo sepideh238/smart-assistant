@@ -9,16 +9,17 @@ export default function ProductCard({
   isSelected,
   onToggleCompare,
 }) {
-  // اگر آبجکت کامل product پاس شده باشد، اولویت با همان است.
-  // در غیر این صورت از پراپ‌های جداگانه استفاده می‌کنیم.
-  const image = product?.imageUrl || product?.image || imageUrl || "";
+  // ۱. استخراج داده‌ها: اولویت اول با آبجکت کامل محصول است که از API می‌آید
+  // استفاده از product?.imageUrl باعث می‌شود مسیرهایی مثل "/images/products/..." درست خوانده شوند
+  const image = product?.imageUrl || imageUrl || ""; 
   const productTitle = product?.title || title || "Product";
-  const productPrice = product?.price ?? price;
+  const productPrice = product?.price ?? price ?? 0;
 
-  // این کامپوننت فقط کلیک را به والد اعلام می‌کند.
-  // منطق add/remove/limit در ProductList مدیریت می‌شود.
+  // ۲. مدیریت کلیک: این تابع فقط به والد (ProductList) خبر می‌دهد که کاربر روی کارت کلیک کرده
   const handleCardClick = () => {
-    onToggleCompare(product);
+    if (onToggleCompare) {
+      onToggleCompare(product);
+    }
   };
 
   return (
@@ -27,14 +28,12 @@ export default function ProductCard({
       onClick={handleCardClick}
       style={{ cursor: "pointer" }}
     >
-      {/* 
-        فقط در حالت انتخاب‌شده، یک دایره سبز با تیک نمایش داده می‌شود.
-        هیچ متن اضافه‌ای مثل Selected نباید اینجا باشد.
-      */}
+      {/* نمایش تیک سبز در صورت انتخاب شدن محصول */}
       {isSelected && <div className="product-card__badge">✓</div>}
 
       {/* تصویر محصول */}
       <div className="product-card__image">
+        {/* چون تصاویر در پوشه public قرار دارند، آدرس‌های شروع شده با / مستقیماً از روت خوانده می‌شوند */}
         <img src={image} alt={productTitle} />
       </div>
 
@@ -44,6 +43,7 @@ export default function ProductCard({
 
         <div className="product-card__price">
           <span className="price-value">
+            {/* فرمت کردن قیمت بر اساس استانداردهای عددی */}
             {typeof productPrice === "number"
               ? productPrice.toLocaleString("en-US")
               : productPrice}
