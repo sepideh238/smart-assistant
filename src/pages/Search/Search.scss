@@ -1,4 +1,4 @@
-/* کانتینر کلی صفحه */
+/* صفحه اصلی سرچ */
 .search-page {
   display: flex;
   flex-direction: column;
@@ -9,6 +9,7 @@
   background-color: #ffffff;
   box-sizing: border-box;
 
+  /* بخش هدر شامل عنوان و SearchBox */
   &__header {
     width: 100%;
     max-width: 900px;
@@ -22,12 +23,27 @@
     }
   }
 
+  /* کانتینر باکس جستجو */
   &__box-container {
     width: 100%;
   }
+
+  /* پیام‌های بارگذاری و خطا */
+  &__message {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1rem;
+    color: #555;
+
+    &--error {
+      color: #d9534f;
+    }
+  }
 }
 
-/* بخش اصلی: چیدمان کارت‌ها */
+/* گرید نمایش کارت‌ها */
 .search-results-grid {
   display: grid;
   width: 100%;
@@ -35,22 +51,30 @@
   margin: 0 auto;
   box-sizing: border-box;
 
-  /* دسکتاپ */
+  /* دسکتاپ: 4 ستون */
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+}
 
-  /* تبلت */
-  @media (max-width: 1024px) {
+/* تبلت و لپ‌تاپ کوچک */
+@media (max-width: 1024px) {
+  .search-results-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 0 20px;
   }
+}
 
-  /* موبایل */
-  @media (max-width: 600px) {
+/* موبایل */
+@media (max-width: 600px) {
+  .search-results-grid {
     grid-template-columns: 1fr;
     gap: 16px;
     padding: 0 15px;
+  }
+
+  .search-page {
+    padding: 16px;
   }
 }
 
@@ -95,10 +119,6 @@
 
 /* موبایل: دکمه‌ها زیر هم */
 @media (max-width: 480px) {
-  .search-page {
-    padding: 16px;
-  }
-
   .search-navigation {
     flex-direction: column;
     width: 100%;

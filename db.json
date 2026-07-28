@@ -40,5 +40,18 @@
       "imageUrl": "/images/toys.png",
       "title": "Toys & Kids"
     }
+  ],
+  "suggestions": [
+    { "id": 1, "name": "Wireless Headphones" },
+    { "id": 2, "name": "Smartphones" },
+    { "id": 3, "name": "Laptop" },
+    { "id": 4, "name": "Running Shoes" },
+    { "id": 5, "name": "Smart Watch" },
+    { "id": 6, "name": "Apple iPhone 14" },
+    { "id": 7, "name": "Samsung Galaxy S23" },
+    { "id": 8, "name": "MacBook Pro" },
+    { "id": 9, "name": "Tablet" },
+    { "id": 10, "name": "Samsung Tablet" },
+    { "id": 11, "name": "Apple iPad" }
   ]
 }

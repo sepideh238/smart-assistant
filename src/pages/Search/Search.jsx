@@ -8,26 +8,26 @@ import CategoryList from "../../components/CategoryList/CategoryList";
 import "./Search.scss";
 
 export default function Search() {
-  // state برای ذخیره دسته‌بندی‌ها
+  // نگهداری لیست دسته‌بندی‌ها
   const [categories, setCategories] = useState([]);
 
-  // state برای نمایش وضعیت لود
+  // وضعیت بارگذاری داده‌ها
   const [loading, setLoading] = useState(true);
 
-  // state برای مدیریت خطا
+  // متن خطا در صورت شکست درخواست
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // تابع دریافت داده از json-server
+    // تابع دریافت داده‌ها از json-server
     const fetchCategories = async () => {
       try {
         setLoading(true);
         setError("");
 
-        // درخواست به API
+        // دریافت دسته‌بندی‌ها از API
         const response = await axios.get("http://localhost:3001/categories");
 
-        // ذخیره مستقیم داده‌ها در state
+        // ذخیره داده‌ها در state
         setCategories(response.data);
       } catch (err) {
         console.error("Error fetching categories:", err);
@@ -41,27 +41,28 @@ export default function Search() {
   }, []);
 
   return (
-    <div className="search-page container">
+    <div className="search-page">
       {/* هدر صفحه */}
       <div className="search-page__header">
         <h1>Smart Assistant</h1>
 
+        {/* باکس جستجو */}
         <div className="search-page__box-container">
           <SearchBox />
         </div>
       </div>
 
-      {/* نمایش وضعیت لود */}
+      {/* پیام بارگذاری */}
       {loading && <p className="search-page__message">در حال بارگذاری...</p>}
 
-      {/* نمایش خطا */}
+      {/* پیام خطا */}
       {!loading && error && (
         <p className="search-page__message search-page__message--error">
           {error}
         </p>
       )}
 
-      {/* اگر لود تمام شده و خطا نداشتیم، لیست نمایش داده شود */}
+      {/* لیست دسته‌بندی‌ها */}
       {!loading && !error && (
         <div className="search-results-grid">
           <CategoryList categories={categories} />
